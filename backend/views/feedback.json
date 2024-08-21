@@ -1,75 +1,67 @@
 {
-    "users_data": [
+    "feedback_data": [
         {
-          "user_ID": 1,
-          "name": "John Doe",
-          "city": "New York",
-          "birthdate": "1990-01-15",
-          "email": "johndoe@example.com",
-          "password": "password123"
+            "feedback_ID": 13,
+            "user_ID": 2,
+            "product_ID": 3,
+            "rating": 5,
+            "comment": "Excellent quality, highly recommend!"
         },
         {
-          "user_ID": 2,
-          "name": "Jane Smith",
-          "city": "Los Angeles",
-          "birthdate": "1985-05-20",
-          "email": "janesmith@example.com"
+            "feedback_ID": 14,
+            "user_ID": 3,
+            "product_ID": 1,
+            "rating": 3,
+            "comment": "Average product, could be better."
         },
         {
-          "user_ID": 3,
-          "name": "Alice Johnson",
-          "city": "Chicago",
-          "birthdate": "1992-07-10",
-          "email": "alicej@example.com"
+            "feedback_ID": 15,
+            "user_ID": 4,
+            "product_ID": 4,
+            "rating": 2,
+            "comment": "Not satisfied, product was damaged."
         },
         {
-          "user_ID": 4,
-          "name": "Robert Brown",
-          "city": "Houston",
-          "birthdate": "1988-03-22",
-          "email": "robertb@example.com"
+            "feedback_ID": 16,
+            "user_ID": 5,
+            "product_ID": 2,
+            "rating": 4,
+            "comment": "Good product but a bit pricey."
         },
         {
-          "user_ID": 5,
-          "name": "Emily Davis",
-          "city": "Phoenix",
-          "birthdate": "1995-08-30",
-          "email": "emilyd@example.com"
+            "feedback_ID": 17,
+            "user_ID": 6,
+            "product_ID": 5,
+            "rating": 5,
+            "comment": "Absolutely love it, will buy again!"
         },
         {
-          "user_ID": 6,
-          "name": "Michael Wilson",
-          "city": "Philadelphia",
-          "birthdate": "1982-12-05",
-          "email": "michaelw@example.com"
+            "feedback_ID": 18,
+            "user_ID": 7,
+            "product_ID": 3,
+            "rating": 1,
+            "comment": "Terrible experience, do not recommend."
         },
         {
-          "user_ID": 7,
-          "name": "Jessica Taylor",
-          "city": "San Antonio",
-          "birthdate": "1993-09-17",
-          "email": "jessicat@example.com"
+            "feedback_ID": 123,
+            "user_ID": 321,
+            "product_ID": 123,
+            "rating": 5,
+            "comment": "good prod"
         },
         {
-          "user_ID": 8,
-          "name": "David Anderson",
-          "city": "San Diego",
-          "birthdate": "1986-06-13",
-          "email": "davidand@example.com"
+            "feedback_ID": 114,
+            "user_ID": 321,
+            "product_ID": 123,
+            "rating": 5,
+            "comment": "good prod"
         },
         {
-          "user_ID": 9,
-          "name": "Sarah Martinez",
-          "city": "Dallas",
-          "birthdate": "1991-11-25",
-          "email": "sarahm@example.com"
-        },
-        {
-          "user_ID": 10,
-          "name": "Chris Garcia",
-          "city": "San Jose",
-          "birthdate": "1989-02-18",
-          "email": "chrisg@example.com"
+            "feedback_ID": 115,
+            "user_ID": 321,
+            "product_ID": 123,
+            "rating": 5,
+            "comment": "good prod"
         }
-      ]
+    ]
 }
