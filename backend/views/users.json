@@ -1,0 +1,75 @@
+{
+    "users_data": [
+        {
+          "user_ID": 1,
+          "name": "John Doe",
+          "city": "New York",
+          "birthdate": "1990-01-15",
+          "email": "johndoe@example.com",
+          "password": "password123"
+        },
+        {
+          "user_ID": 2,
+          "name": "Jane Smith",
+          "city": "Los Angeles",
+          "birthdate": "1985-05-20",
+          "email": "janesmith@example.com"
+        },
+        {
+          "user_ID": 3,
+          "name": "Alice Johnson",
+          "city": "Chicago",
+          "birthdate": "1992-07-10",
+          "email": "alicej@example.com"
+        },
+        {
+          "user_ID": 4,
+          "name": "Robert Brown",
+          "city": "Houston",
+          "birthdate": "1988-03-22",
+          "email": "robertb@example.com"
+        },
+        {
+          "user_ID": 5,
+          "name": "Emily Davis",
+          "city": "Phoenix",
+          "birthdate": "1995-08-30",
+          "email": "emilyd@example.com"
+        },
+        {
+          "user_ID": 6,
+          "name": "Michael Wilson",
+          "city": "Philadelphia",
+          "birthdate": "1982-12-05",
+          "email": "michaelw@example.com"
+        },
+        {
+          "user_ID": 7,
+          "name": "Jessica Taylor",
+          "city": "San Antonio",
+          "birthdate": "1993-09-17",
+          "email": "jessicat@example.com"
+        },
+        {
+          "user_ID": 8,
+          "name": "David Anderson",
+          "city": "San Diego",
+          "birthdate": "1986-06-13",
+          "email": "davidand@example.com"
+        },
+        {
+          "user_ID": 9,
+          "name": "Sarah Martinez",
+          "city": "Dallas",
+          "birthdate": "1991-11-25",
+          "email": "sarahm@example.com"
+        },
+        {
+          "user_ID": 10,
+          "name": "Chris Garcia",
+          "city": "San Jose",
+          "birthdate": "1989-02-18",
+          "email": "chrisg@example.com"
+        }
+      ]
+}
