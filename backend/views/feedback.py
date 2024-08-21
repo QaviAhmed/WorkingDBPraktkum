@@ -1,55 +1,95 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, send_from_directory
 import json
- 
-with open('/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/backend/views/feedback.json', 'r') as file:
-    data = json.load(file)
+import os
 
-feedback = data["feedback_data"]
-feed_IDs = [feedback['feedback_ID'] for feedback in data['feedback_data']]
+template_dir = os.path.abspath("C:/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/frontend/templates")
+app = Flask(__name__, template_folder=template_dir, static_folder=os.path.join(template_dir, 'static'))
 
-# Define the POST endpoint
+JSON_FILE_PATH = '/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/backend/views/feedback.json'
 
-print(feedback)
-print(feed_IDs)
- 
-#feedback = data["feedback_data"]
-#
+def load_data():
+    with open(JSON_FILE_PATH, 'r') as file:
+        return json.load(file)
 
-app = Flask(__name__)
- 
- 
-@app.route('/feedback', methods=['POST'])
-def add_feedback():
-    # Get the new feedback from the request body
-    new_feedback = request.get_json()
-
-    # Ensure the feedback ID is unique
-    new_feedback_id = new_feedback.get('feedback_ID')
-    if new_feedback_id in feed_IDs:
-        return jsonify({"error": "Feedback ID already exists"}), 400
-
-    # Add the new feedback to the data
-    data['feedback_data'].append(new_feedback)
-
-    # Update the feedback IDs list
-    feed_IDs.append(new_feedback_id)
-
-    # Save the updated data back to the JSON file
-    with open('/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/backend/views/feedback.json', 'w') as file:
+def save_data(data):
+    with open(JSON_FILE_PATH, 'w') as file:
         json.dump(data, file, indent=4)
 
-    return jsonify({"message": "Feedback added successfully"}), 201
-        
+
+@app.route('/feedback', methods=['POST'])
+def add_feedback():
+    data = load_data()
+    new_feedback = request.get_json()
     
-"""@app.route('/login', methods=['GET'])
-def login_get():
-    return json.dumps({"status": "success", "data": {"key": "Hello, world"}})
-   """
+    # Generate feedback_ID
+    max_id = max([f['feedback_ID'] for f in data['feedback_data']], default=0)
+    new_feedback['feedback_ID'] = max_id + 1
+    
+    data['feedback_data'].append(new_feedback)
+    save_data(data)
+    return jsonify({"message": "Feedback added successfully", "feedback": new_feedback}), 201
 
 
+@app.route('/feedback', methods=['GET'])
+def get_feedback():
+    data = load_data()
+    product_id = request.args.get('product_id')
+    
+    if product_id:
+        filtered_feedback = [f for f in data['feedback_data'] if f['product_ID'] == int(product_id)]
+        if len(filtered_feedback) != 0:
+            return jsonify(filtered_feedback)
+        else:
+            return jsonify({"message": "Feedback not"}), 404
+    else:
+        return jsonify(data['feedback_data'])
 
 
+@app.route('/feedback/<int:feedback_id>', methods=['PUT'])
+def update_feedback(feedback_id):
+    data = load_data()
+    update_data = request.get_json()
+    
+    for feedback in data['feedback_data']:
+        if feedback['feedback_ID'] == feedback_id:
+            feedback.update(update_data)
+            save_data(data)
+            return jsonify({"message": "Feedback updated successfully", "feedback": feedback})
+    
+    return jsonify({"error": "Feedback not found"}), 404
 
+@app.route('/feedback/<int:feedback_id>', methods=['PATCH'])
+def patch_feedback(feedback_id):
+    data = load_data()
+    update_data = request.get_json()
+    
+    for feedback in data['feedback_data']:
+        if feedback['feedback_ID'] == feedback_id:
+            for key, value in update_data.items():
+                if key in feedback:
+                    feedback[key] = value
+            save_data(data)
+            return jsonify({"message": "Feedback partially updated successfully", "feedback": feedback})
+    
+    return jsonify({"error": "Feedback not found"}), 404
+
+
+@app.route('/feedback/<int:feedback_id>', methods=['DELETE'])
+def delete_feedback(feedback_id):
+    data = load_data()
+    initial_length = len(data['feedback_data'])
+    data['feedback_data'] = [f for f in data['feedback_data'] if f['feedback_ID'] != feedback_id]
+    
+    if len(data['feedback_data']) < initial_length:
+        save_data(data)
+        return jsonify({"message": "Feedback deleted successfully"}), 200
+    else:
+        return jsonify({"error": "Feedback not found"}), 404
+
+# Serve the feedback UI
+@app.route('/feedback/ui', methods=['GET'])
+def feedback_ui():
+    return render_template('feedback.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
