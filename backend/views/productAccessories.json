@@ -1,0 +1,35 @@
+{
+    "product_accessories_data": [
+      {
+        "product_ID": "A001",
+        "type": "Watch",
+        "gender": "Unisex",
+        "usage": "Formal"
+      },
+      {
+        "product_ID": "A002",
+        "type": "Sunglasses",
+        "gender": "Female",
+        "usage": "Casual"
+      },
+      {
+        "product_ID": "A003",
+        "type": "Scarf",
+        "gender": "Male",
+        "usage": "Winter"
+      },
+      {
+        "product_ID": "A004",
+        "type": "Wallet",
+        "gender": "Unisex",
+        "usage": "Everyday"
+      },
+      {
+        "product_ID": "A005",
+        "type": "Belt",
+        "gender": "Male",
+        "usage": "Formal"
+      }
+    ]
+  }
+  

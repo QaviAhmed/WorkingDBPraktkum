@@ -1,0 +1,40 @@
+{
+    "productsShoe_data": [
+      {
+        "product_ID": "001",
+        "color": "Red",
+        "size": "36",
+        "material": "Cotton",
+        "gender": "Unisex"
+      },
+      {
+        "product_ID": "002",
+        "color": "Blue",
+        "size": "42",
+        "material": "Polyester",
+        "gender": "Male"
+      },
+      {
+        "product_ID": "003",
+        "color": "Black",
+        "size": "38",
+        "material": "Leather",
+        "gender": "Female"
+      },
+      {
+        "product_ID": "004",
+        "color": "Green",
+        "size": "44",
+        "material": "Wool",
+        "gender": "Unisex"
+      },
+      {
+        "product_ID": "005",
+        "color": "White",
+        "size": "40",
+        "material": "Linen",
+        "gender": "Female"
+      }
+    ]
+  }
+  
