@@ -15,7 +15,7 @@ def save_data(data):
     with open(JSON_FILE_PATH, 'w') as file:
         json.dump(data, file, indent=4)
 
-
+# Post feedback entity, while feedback_ID is 'generated'
 @app.route('/feedback', methods=['POST'])
 def add_feedback():
     data = load_data()
@@ -29,7 +29,7 @@ def add_feedback():
     save_data(data)
     return jsonify({"message": "Feedback added successfully", "feedback": new_feedback}), 201
 
-
+# Get feedback table & search feedbacks by product_id
 @app.route('/feedback', methods=['GET'])
 def get_feedback():
     data = load_data()
@@ -45,19 +45,7 @@ def get_feedback():
         return jsonify(data['feedback_data'])
 
 
-@app.route('/feedback/<int:feedback_id>', methods=['PUT'])
-def update_feedback(feedback_id):
-    data = load_data()
-    update_data = request.get_json()
-    
-    for feedback in data['feedback_data']:
-        if feedback['feedback_ID'] == feedback_id:
-            feedback.update(update_data)
-            save_data(data)
-            return jsonify({"message": "Feedback updated successfully", "feedback": feedback})
-    
-    return jsonify({"error": "Feedback not found"}), 404
-
+# using Patch for partial and complete updates
 @app.route('/feedback/<int:feedback_id>', methods=['PATCH'])
 def patch_feedback(feedback_id):
     data = load_data()
@@ -69,7 +57,7 @@ def patch_feedback(feedback_id):
                 if key in feedback:
                     feedback[key] = value
             save_data(data)
-            return jsonify({"message": "Feedback partially updated successfully", "feedback": feedback})
+            return jsonify({"message": "Feedback updated successfully", "feedback": feedback})
     
     return jsonify({"error": "Feedback not found"}), 404
 
