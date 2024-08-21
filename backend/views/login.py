@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 import json
-
-with open('/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/backend/views/users.json', 'r') as file:
+ 
+with open('/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/backend/views/users.json', 'r') as file:
     data = json.load(file)
-
+ 
 users = data['users_data']
 print(users)
  
