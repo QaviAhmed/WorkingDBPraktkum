@@ -15,7 +15,7 @@ def save_data(data):
     with open(JSON_FILE_PATH, 'w') as file:
         json.dump(data, file, indent=4)
 
-# Post feedback entity, while feedback_ID is 'generated'
+# Post feedback entity ++ feedback_ID is 'generated'
 @app.route('/feedback', methods=['POST'])
 def add_feedback():
     data = load_data()
@@ -45,7 +45,7 @@ def get_feedback():
         return jsonify(data['feedback_data'])
 
 
-# using Patch for partial and complete updates
+# Patch
 @app.route('/feedback/<int:feedback_id>', methods=['PATCH'])
 def patch_feedback(feedback_id):
     data = load_data()
@@ -61,7 +61,7 @@ def patch_feedback(feedback_id):
     
     return jsonify({"error": "Feedback not found"}), 404
 
-
+# Delete
 @app.route('/feedback/<int:feedback_id>', methods=['DELETE'])
 def delete_feedback(feedback_id):
     data = load_data()
