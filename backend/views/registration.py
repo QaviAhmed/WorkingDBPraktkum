@@ -1,37 +1,32 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import json
+import os
 
 with open('/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/backend/views/users.json', 'r') as file:
     data = json.load(file)
 
 users = data['users_data']
-print(users)
- 
-app = Flask(__name__)
- 
- 
-@app.route('/login', methods=['POST'])
-def login():
-    # Parse JSON data from the request
+
+template_dir = os.path.abspath("/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/frontend/templates")
+app = Flask(__name__, template_folder=template_dir)
+
+
+@app.route('/registration', methods=['POST'])
+def registration():
     data = request.get_json()
     print(data)
-    # Extract email 8and password from the JSON data
-    email = data.get("email")
+    name = data.get("name")
     
     # password = data.get('password')
  
     # Check if the user exists and the password matches
     for user in users:
-        if user["email"] == email:
+        if user["email"] != data.get("email"):
             return jsonify({
-            "message": "Login successful",
-            "user": user["name"]
+            "message": "Registration successful",
         }), 200
-        
         else:
-            return jsonify({
-            "message": "Invalid email or password"
-        }), 401
+            return render_template('falschRegister.html')
         
     
 """@app.route('/login', methods=['GET'])

@@ -10,7 +10,6 @@ from test_sql import connecting_mariadb
 
     
 template_dir = os.path.abspath("/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/frontend/templates")
-print(template_dir)
 app = Flask(__name__, template_folder=template_dir)
 connecting_mariadb()
 

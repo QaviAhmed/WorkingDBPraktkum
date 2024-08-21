@@ -6,7 +6,7 @@
           "city": "New York",
           "birthdate": "1990-01-15",
           "email": "johndoe@example.com",
-          "password": "password"
+          "password": "password123"
         },
         {
           "user_ID": 2,
