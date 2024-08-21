@@ -3,11 +3,18 @@ import json
  
 with open('/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/backend/views/feedback.json', 'r') as file:
     data = json.load(file)
- 
-feedback = data['feedback_data']
+
+feedback = data["feedback_data"]
+feed_IDs = [feedback['feedback_ID'] for feedback in data['feedback_data']]
+
+# Define the POST endpoint
 
 print(feedback)
+print(feed_IDs)
  
+#feedback = data["feedback_data"]
+#
+
 app = Flask(__name__)
  
  
