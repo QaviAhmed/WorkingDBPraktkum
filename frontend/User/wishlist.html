@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User's Wishlist - ShoesYou</title>
+    <link rel="stylesheet" href="stylesWish.css">
+    <link rel="stylesheet" href="stylesAcc.css">
+</head>
+<body>
+    <header class="header">
+        <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
+            <div style="display: flex; align-items:center;">
+                <a href="/main/Home.html" class="logo">
+                    <img src="/frontend/main /pics/Logo2.png" alt="ShoesYou">
+                </a>
+                <a href="">Categories</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search...">
+                <button type="submit" onclick="searchItems()">&#128269;</button>
+            </div>
+            <div style="display:flex;justify-content:end; text-align:end;" >
+                <button class="under-btn">Become a Seller!</button>
+                <img src="/frontend/main /pics/wishlist.PNG" alt="User Icon" style="width: 15%;">
+                <img src="/frontend/main /pics/cart.PNG" alt="User Icon" style="width: 15%;">
+                <img src="/frontend/main /pics/user.jpeg" alt="User Icon" style="width: 11%;">
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="wishlist">
+            <h1>User's Wishlist</h1>
+            <div class="filters">
+                <button class="sort-dropdown">Sort <i class="fas fa-chevron-down"></i></button>
+                <button class="category-dropdown">Category <i class="fas fa-chevron-down"></i></button>
+            </div>
+
+            <div class="wishlist-grid">
+                <!-- Example wishlist items -->
+                <div class="wishlist-item">
+                    <div class="image-placeholder"></div>
+                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
+                </div>
+                <div class="wishlist-item">
+                    <div class="image-placeholder"></div>
+                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
+                </div>
+                <div class="wishlist-item">
+                    <div class="image-placeholder"></div>
+                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
+                </div>
+                <div class="wishlist-item">
+                    <div class="image-placeholder"></div>
+                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
+                </div>
+                <div class="wishlist-item">
+                    <div class="image-placeholder"></div>
+                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
+                </div>
+                <div class="wishlist-item">
+                    <div class="image-placeholder"></div>
+                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ShoesYou. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
