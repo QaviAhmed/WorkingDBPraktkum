@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Accessories Details</title>
+    <style>
+        .product-accessory {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .product-accessory-detail {
+            margin-left: 20px;
+        }
+        .product-accessory-detail p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Accessories Details</h1>
+    <div id="product-accessories-container"></div>
+
+    <script>
+        // Fetch the Product Accessories data from the backend
+        fetch('/productAccessories')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Log the data to verify it's being received correctly
+                const productAccessoriesContainer = document.getElementById('product-accessories-container');
+                
+                // Check if the data is wrapped in a 'data' property
+                const productAccessoriesData = data.data || data;
+                
+                // Create HTML for each product accessory
+                productAccessoriesData.forEach(accessory => {
+                    const accessoryDiv = document.createElement('div');
+                    accessoryDiv.classList.add('product-accessory');
+
+                    let accessoryHtml = `<h2>Product ID: ${accessory.product_ID}</h2>`;
+                    accessoryHtml += `
+                        <div class="product-accessory-detail">
+                            <p><strong>Type:</strong> ${accessory.type}</p>
+                            <p><strong>Gender:</strong> ${accessory.gender}</p>
+                            <p><strong>Usage:</strong> ${accessory.usage}</p>
+                        </div>
+                    `;
+
+                    accessoryDiv.innerHTML = accessoryHtml;
+                    productAccessoriesContainer.appendChild(accessoryDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching product accessories data:', error));
+    </script>
+</body>
+</html>
