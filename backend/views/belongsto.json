@@ -1,0 +1,10 @@
+{
+    "belongsto_data": [
+      {"category_ID": 101, "product_ID": 1},
+      {"category_ID": 102, "product_ID": 2},
+      {"category_ID": 103, "product_ID": 3},
+      {"category_ID": 104, "product_ID": 5},
+      {"category_ID": 105, "product_ID": 123},
+      {"category_ID": 105, "product_ID": 124}
+    ]
+  }
