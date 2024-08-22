@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User's Wishlist - ShoesYou</title>
-    <link rel="stylesheet" href="stylesWish.css">
+    <title>Track Order - ShoesYou</title>
+    <link rel="stylesheet" href="stylesTrack.css">
     <link rel="stylesheet" href="/frontend/main /style.css">
 
 </head>
@@ -31,40 +31,53 @@
     </header>
 
     <main>
-        <section class="wishlist">
-            <h1>User's Wishlist</h1>
-            <div class="filters">
-                <button class="sort-dropdown">Sort <i class="fas fa-chevron-down"></i></button>
-                <button class="category-dropdown">Category <i class="fas fa-chevron-down"></i></button>
+        <section class="track-order">
+            <h1>Track Order</h1>
+            <h2>Order details: #763F7SS&</h2>
+
+            <div class="order-progress">
+                <div class="progress-step completed">
+                    <p>Order Placed</p>
+                </div>
+                <div class="progress-step completed">
+                    <p>Order Confirmed</p>
+                </div>
+                <div class="progress-step completed">
+                    <p>In Process</p>
+                </div>
+                <div class="progress-step">
+                    <p>In Delivery</p>
+                </div>
+                <div class="progress-step">
+                    <p>Delivered</p>
+                </div>
             </div>
 
-            <div class="wishlist-grid">
-                <!-- Example wishlist items -->
-                <div class="wishlist-item">
-                    <div class="image-placeholder"></div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
+            <div class="order-summary">
+                <h2>Bestellungsübersicht:</h2>
+                <!-- Order Item 1 -->
+                <div class="order-item">
+                    <div class="item-number">1.</div>
+                    <div class="item-image"></div>
+                    <div class="item-details">
+                        <p>Quantity: 1</p>
+                        <p>Details:<br>xxxxxxxxx xxx x x<br>x x x x x x x x x x<br>xxxxxxx<br>xxxxxxxx</p>
+                    </div>
+                    <div class="item-price">1000.00 €</div>
                 </div>
-                <div class="wishlist-item">
-                    <div class="image-placeholder"></div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
-                </div>
-                <div class="wishlist-item">
-                    <div class="image-placeholder"></div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
-                </div>
-                <div class="wishlist-item">
-                    <div class="image-placeholder"></div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
-                </div>
-                <div class="wishlist-item">
-                    <div class="image-placeholder"></div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
-                </div>
-                <div class="wishlist-item">
-                    <div class="image-placeholder"></div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove Item from Wishlist</button>
+                <!-- Order Item 2 -->
+                <div class="order-item">
+                    <div class="item-number">2.</div>
+                    <div class="item-image"></div>
+                    <div class="item-details">
+                        <p>Quantity: 1</p>
+                        <p>Details:<br>xxxxxxxxx xxx x x<br>x x x x x x x x x x<br>xxxxxxx<br>xxxxxxxx</p>
+                    </div>
+                    <div class="item-price">1000.00 €</div>
                 </div>
             </div>
+
+            <p class="return-policy">Some Articles cannot be returned!</p>
         </section>
     </main>
 
@@ -101,6 +114,7 @@
             </ul>
         </div>
     </footer>
+
     <script src="scripts.js"></script>
 </body>
 </html>

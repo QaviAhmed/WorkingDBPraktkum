@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Seller - ShoesYou</title>
+    <link rel="stylesheet" href="stylesBecomeSeller.css">
+    <link rel="stylesheet" href="/frontend/main /style.css">
+
+</head>
+<body>
+    <header class="header">
+        <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
+            <div style="display: flex; align-items:center;">
+                <a href="/frontend/main /index.html" class="logo">
+                    <img src="/frontend/main /pics/Logo2.png" alt="ShoesYou">
+                </a>
+                <a href="">Categories</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search...">
+                <button type="submit" onclick="searchItems()">&#128269;</button>
+            </div>
+            <div style="display:flex;justify-content:end; text-align:end;" >
+                <button class="under-btn">Become a Seller!</button>
+                <img src="/frontend/main /pics/wishlist.PNG" alt="User Icon" style="width: 15%;">
+                <img src="/frontend/main /pics/cart.PNG" alt="User Icon" style="width: 15%;">
+                <img src="/frontend/main /pics/user.jpeg" alt="User Icon" style="width: 11%;">
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+        <section class="seller-application">
+            <h1>Application to become a seller:</h1>
+            <div class="profile-section">
+                <div class="profile-picture">
+                    <img src="profile-placeholder.png" alt="User Profile">
+                </div>
+                <div class="profile-info">
+                    <h2>User</h2>
+                    <p>xxxxxxxxx<br>xxxxxxxxx<br>xxxxx <i class="fas fa-question-circle"></i></p>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-group">
+                    <h3>Account Preferences:</h3>
+                    <p>Shop Language: </p> <input type="text" placeholder="Enter your shop language">
+                    <p>Shop Country:</p> <input type="text" placeholder="Enter your shop Country">
+                    <p>Currency:</p ><input type="text" placeholder="Enter your shop currency">
+                </div>
+
+                <div class="form-group">
+                    <h3>Name your shop:</h3>
+                    <input type="text" placeholder="Enter your shop name">
+                </div>
+
+                <div class="form-group">
+                    <h3>How you'll get paid:</h3>
+                    <p>Are you an individual Seller or Business Seller?</p>
+                    <input type="text" placeholder="Enter your PayPal">
+                </div>
+
+                <div class="form-group" >
+                    <h3>Authentication:</h3>
+                    <p>xxxxxx xxxx xxx xxxxx xxxxx xxxxx xxxx</p>
+                    <p>xxxxxxxxxxxxxxxx xxxxx xx x x xx xxxxxxx</p>
+                    <p>xxxxx xxxxxxxx xxxxxxxxxxxxxxxxxxx xxx xxx</p>
+                    <p>xxxx xxxx xxxxxx xxxxxxxxx xxxxxxx xxx xxx xxx</p>
+                    <p>Please Upload a picture of your ID-Card:</p>
+                    <input type="file">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-section">
+            <h3>ShoesYou</h3>
+            <ul>
+                <li>Über uns</li>
+                <li>News Agents</li>
+                <li>Mobile Apps</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Informationen</h3>
+            <ul>
+                <li>Hilfe</li>
+                <li>Tipps für deine Sicherheit</li>
+                <li>Impressum</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Social Media</h3>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>TikTok</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Allgemein</h3>
+            <ul>
+                <li>Datenschutz</li>
+                <li>Anzeigen Übersicht</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
