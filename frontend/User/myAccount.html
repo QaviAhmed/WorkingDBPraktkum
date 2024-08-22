@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - ShoesYou</title>
+    <link rel="stylesheet" href="stylesAcc.css">
+    <link rel="stylesheet" href="/frontend/main /style.css">
+</head>
+<body>
+    <header class="header">
+        <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
+            <div style="display: flex; align-items:center;">
+                <a href="/main/Home.html" class="logo">
+                    <img src="/frontend/main /pics/Logo2.png" alt="ShoesYou">
+                </a>
+                <a href="">Categories</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search...">
+                <button type="submit" onclick="searchItems()">&#128269;</button>
+            </div>
+            <div style="display:flex;justify-content:end; text-align:end;" >
+                <button class="under-btn">Become a Seller!</button>
+                <img src="/frontend/main /pics/wishlist.PNG" alt="User Icon" style="width: 15%;">
+                <img src="/frontend/main /pics/cart.PNG" alt="User Icon" style="width: 15%;">
+                <img src="/frontend/main /pics/user.jpeg" alt="User Icon" style="width: 11%;">
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="account">
+            <h1>Manage Account</h1>
+            <div class="profile">
+                <div class="profile-pic">
+                    <img src="profile-placeholder.png" alt="User profile picture">
+                </div>
+                <div class="profile-info">
+                    <h2>User</h2>
+                    <p>xxxxxxxxx<br>xxxxxxxxx<br>xxxxx <i class="fas fa-question-circle"></i></p>
+                </div>
+            </div>
+
+            <div class="account-details">
+                <h3>Account Details</h3>
+                <p>E-mail: MaxMustermann@gmail.com</p>
+                <p>Birthdate: DD.MM.YYYY</p>
+                <p>Username: goofyahh</p>
+                <p><a href="#">Click here</a> to edit your information</p>
+            </div>
+
+            <div class="seller-info">
+                <h3>Want to become a seller? Instructions to becoming a seller:</h3>
+                <p>
+                    xxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxx xxxxx x x xx x x xxxxxxxx xxxx xxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxx xxxxx x x xx x x xxxxxxxx xxxx xxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxx xxxxx x x xx x x xxxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxx xxxxx x xx x x xxxxxxxx xxxx xxxxxxx xxxx xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxx xxxxx x xx x x xxxxxxxx xxxx
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ShoesYou. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
