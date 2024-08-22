@@ -89,7 +89,7 @@ nav img{
 
 
 
-/* Wishlist Section */
+/* Wishlist Section - Put categories with the help of flask loop */
 main .wishlist {
     background-color: #fff;
     padding: 20px;
