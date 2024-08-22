@@ -18,6 +18,7 @@ class DBManager:
             user=user,
             password=password,
             port=int(port),  # Ensure port is passed as an integer
+            ssl =False
         )
         self.__create_db_if_not_exists(dbName)
         self.connection_pool.close()
@@ -30,7 +31,8 @@ class DBManager:
             user=user,
             password=password,
             port=int(port),  # Ensure port is passed as an integer
-            database=dbName
+            database=dbName,
+            ssl =False
         )
         
     def __create_db_if_not_exists(self, dbName):
@@ -126,11 +128,11 @@ db_manager = DBManager(
     poolName="shoeshop_pool",
     poolSize=5,
     poolResetSession=True,
-    host="localhost",
-    user="root",
-    password="pass",
-    dbName="db_shoeshop",
-    port="3306"
+    host="134.93.110.97",
+    user="db_main",
+    password="dbteamd",
+    dbName="db_shoeyou",
+    port="3307",
 )
 
 # Example of creating tables and inserting data
