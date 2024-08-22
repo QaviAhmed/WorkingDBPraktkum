@@ -1,0 +1,25 @@
+{
+    "wishlist_data": [
+      {
+        "user_ID": "U001",
+        "product_ID": "001"
+      },
+      {
+        "user_ID": "U002",
+        "product_ID": "A003"
+      },
+      {
+        "user_ID": "U001",
+        "product_ID": "004"
+      },
+      {
+        "user_ID": "U003",
+        "product_ID": "A002"
+      },
+      {
+        "user_ID": "U002",
+        "product_ID": "005"
+      }
+    ]
+  }
+  
