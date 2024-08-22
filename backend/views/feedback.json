@@ -1,20 +1,6 @@
 {
     "feedback_data": [
         {
-            "feedback_ID": 14,
-            "user_ID": 3,
-            "product_ID": 1,
-            "rating": 3,
-            "comment": "Average product, could be better."
-        },
-        {
-            "feedback_ID": 15,
-            "user_ID": 10,
-            "product_ID": 2,
-            "rating": 4,
-            "comment": "Updated comment for feedback 15"
-        },
-        {
             "feedback_ID": 16,
             "user_ID": 5,
             "product_ID": 2,
