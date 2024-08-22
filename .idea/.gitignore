@@ -7,5 +7,5 @@
 /dataSources/
 /dataSources.local.xml
 
-venv/
-__pycache__/
+/venv/
+/__pycache__/
