@@ -11,7 +11,7 @@
 
     <script>
         // Fetch the feedback data from the backend
-        fetch('/feedback')
+        fetch('http://127.0.0.1:5000/feedback')
             .then(response => response.json())
             .then(data => {
                 console.log(data); // Log the data to verify it's being received correctly

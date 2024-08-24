@@ -1,11 +1,15 @@
 from flask import Flask, request, jsonify, render_template
 import json
+from flask_cors import CORS
 import os
 
-template_dir = os.path.abspath("/Users/Roman/Downloads/DB_Praktikum/WorkingDBPraktkum/frontend/templates")
+
+
+template_dir = os.path.abspath("/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/frontend/templates")
 app = Flask(__name__, template_folder=template_dir, static_folder=os.path.join(template_dir, 'static'))
- 
-with open('/Users/Roman/Downloads/DB_Praktikum/WorkingDBPraktkum/backend/views/product.json', 'r') as file:
+CORS(app)
+
+with open('/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/backend/views/product.json', 'r') as file:
     data = json.load(file)
     
 product_data = data['product_data']

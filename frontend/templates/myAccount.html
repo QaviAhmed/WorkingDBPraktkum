@@ -37,18 +37,25 @@
                     <img src="profile-placeholder.png" alt="User profile picture">
                 </div>
                 <div class="profile-info">
-                    <h2>User</h2>
-                    <p>xxxxxxxxx<br>xxxxxxxxx<br>xxxxx <i class="fas fa-question-circle"></i></p>
+                    <h2><span id="user-name"></span></h2>
+                    <p>E-mail: <span id="user-email"></span></p>
+                    <p>Birthdate: <span id="user-birthdate"></span></p>
+                    <p>City: <span id="user-city"></span></p>
                 </div>
             </div>
 
             <div class="account-details">
-                <h3>Account Details</h3>
-                <p>E-mail: MaxMustermann@gmail.com</p>
-                <p>Birthdate: DD.MM.YYYY</p>
-                <p>Username: goofyahh</p>
+                
+                <!-- <h3>Account Details</h3>
+                {% if user %}
+                <p>E-mail:{{ user.email }}</p>
+                <p>Birthdate: {{ user.birthdate }}</p>
+                <p>Username: {{ user.name }}</p>
                 <p><a href="#">Click here</a> to edit your information</p>
-            </div>
+                {% else %}
+                <h1>No Data!</h1>
+                {% endif %}
+            </div> -->
 
             <div class="seller-info">
                 <h3>Want to become a seller? Instructions to becoming a seller:</h3>
@@ -58,6 +65,23 @@
             </div>
         </section>
     </main>
+    <script>
+        // Fetch the user data from the backend
+        fetch('http://127.0.0.1:5000/userProfile/4')
+        .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById('user-name').innerText = data.data.name;
+        document.getElementById('user-email').innerText = data.data.email;
+        document.getElementById('user-birthdate').innerText = data.data.birthdate;
+        document.getElementById('user-city').innerText = data.data.city;
+    })
+    .catch(error => console.error('Error fetching user data:', error));
+    </script>
 
     <footer>
         <div class="footer-section">

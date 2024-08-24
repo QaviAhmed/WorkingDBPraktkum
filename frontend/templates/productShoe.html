@@ -23,7 +23,7 @@
 
     <script>
         // Fetch the Product data from the backend
-        fetch('/productShoe')
+        fetch('http://127.0.0.1:5000/productsShoe')
             .then(response => response.json())
             .then(data => {
                 console.log(data); // Log the data to verify it's being received correctly

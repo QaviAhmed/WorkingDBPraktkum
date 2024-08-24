@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import json
+from flask_cors import CORS
  
 with open('backend/views/productShoe.json', 'r') as file:
     data = json.load(file)
@@ -8,7 +9,7 @@ productsShoe_data = data['productsShoe_data']
 
  
 app = Flask(__name__)
- 
+CORS(app)
  
 @app.route('/productsShoe', methods=['GET'])
 def productsShoe():
