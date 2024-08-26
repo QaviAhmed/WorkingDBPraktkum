@@ -1,37 +1,30 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
-import json
+from flask import Flask, render_template, request, redirect, url_for, jsonify, Blueprint
 import os
+from db_model import db_manager
+from serialization import Serialization  
 
-with open('/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/backend/views/users.json', 'r') as file:
-    data = json.load(file)
 
-users = data['users_data']
+
+users_data = db_manager.fetch_all("SELECT * FROM User")
+serialized_users = Serialization(users_data, "User", ['user_ID', 'name', 'city', 'birthday', 'email', 'password']).get_data()
 
 template_dir = os.path.abspath("/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/frontend/templates")
-app = Flask(__name__, template_folder=template_dir)
+register_page = Blueprint('register_page',__name__, template_folder=f" {template_dir}/authorization")
 
 
-@app.route('/registration', methods=['POST'])
+@register_page.route('/registration', methods=['POST','GET'])
 def registration():
-    data = request.get_json()
-    print(data)
-    name = data.get("name")
+    if request.method == 'POST':
+        data = request.get_json()
+        # password = data.get('password')
     
-    # password = data.get('password')
- 
-    # Check if the user exists and the password matches
-    for user in users:
-        if user["email"] != data.get("email"):
-            return jsonify({
-            "message": "Registration successful",
-        }), 200
-        else:
-            return render_template('falschRegister.html')
-        
-    
-"""@app.route('/login', methods=['GET'])
-def login_get():
-    return json.dumps({"status": "success", "data": {"key": "Hello, world"}})
-   """
-if __name__ == '__main__':
-    app.run(debug=True)
+        for user in serialized_users:
+            if user["email"] != data.get("email"):
+                return jsonify({
+                "message": "Registration successful",
+            }), 200
+            else:
+                return jsonify({
+                "message": "Registration scheisse",
+            }), 200
+    return render_template('register.html')

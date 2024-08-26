@@ -1,42 +1,39 @@
-from flask import Flask, request, jsonify
-import json
+from flask import Flask, request, jsonify, render_template, Blueprint
+from db_model import db_manager
+import os
+from serialization import Serialization  
+
+
+users_data = db_manager.fetch_all("SELECT * FROM User")
+serialized_users = Serialization(users_data, "User", ['user_ID', 'name', 'city', 'birthday', 'email', 'password']).get_data()
  
-with open('/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/backend/views/users.json', 'r') as file:
-    data = json.load(file)
- 
-users = data['users_data']
-print(users)
- 
-app = Flask(__name__)
+
+template_dir = os.path.abspath("/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/frontend/templates")
+login_page = Blueprint('login_page',__name__, template_folder=f"{template_dir}/authorization")
  
  
-@app.route('/login', methods=['POST'])
+@login_page.route('/login', methods=['GET', 'POST'])
 def login():
-    # Parse JSON data from the request
-    data = request.get_json()
-    print(data)
-    # Extract email 8and password from the JSON data
-    email = data.get("email")
-    
-    # password = data.get('password')
- 
-    # Check if the user exists and the password matches
-    for user in users:
-        if user["email"] == email:
-            return jsonify({
-            "message": "Login successful",
-            "user": user["name"]
-        }), 200
-        
+    if request.method == 'POST':
+        # Process the login form submission
+        email = request.form.get('email')
+        #password = request.form.get('password')
+        print(email)
+
+        # Check if the user exists and the password matches
+        for user in serialized_users:
+            print(user)
+            if user["email"] == email:
+                return jsonify({
+                "message": "Login successful",
+                "user": user["name"]
+            }), 200
+       
         else:
             return jsonify({
             "message": "Invalid email or password"
-        }), 401
-        
+            }), 401
+    else:
+        # Render the login form
+        return render_template('login.html')
     
-"""@app.route('/login', methods=['GET'])
-def login_get():
-    return json.dumps({"status": "success", "data": {"key": "Hello, world"}})
-   """
-if __name__ == '__main__':
-    app.run(debug=True)

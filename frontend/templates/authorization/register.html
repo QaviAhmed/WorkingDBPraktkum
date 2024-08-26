@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShoesYou - Register</title>
-    <link rel="stylesheet" href="stylesReg.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/stylesReg.css') }}">
 </head>
 <body>
     <div class="register-container">
@@ -14,7 +14,7 @@
         <div class="register-content">
             <div class="register-form">
                 <h2>Register</h2>
-                <form>
+                <form action="{{ url_for('register_page.registration') }}" method="POST">
                     <label for="name">Name</label>
                     <input type="text" id="name" placeholder="Name">
                     <label for="email">E-mail</label>
@@ -25,7 +25,7 @@
                 </form>
             </div>
             <div class="register-image">
-                <img src="/frontend/main /pics/1st.jpg" alt="Shoe Image">
+                <img src="{{ url_for('static',filename='/pics/1st.jpg') }}" alt="Shoe Image">
             </div>
         </div>
     </div>

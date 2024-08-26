@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import json
-from flask_cors import CORS
  
 with open('backend/views/productShoe.json', 'r') as file:
     data = json.load(file)
@@ -9,7 +8,7 @@ productsShoe_data = data['productsShoe_data']
 
  
 app = Flask(__name__)
-CORS(app)
+
  
 @app.route('/productsShoe', methods=['GET'])
 def productsShoe():
@@ -32,6 +31,7 @@ def create_products():
             "message": "Product added sucsessful"
         }), 200
 
+   
 @app.route('/productsShoe', methods=['DELETE'])
 def delete_products():
     data = request.get_json()
@@ -46,7 +46,7 @@ def delete_products():
         else:
             return jsonify({
             "message": "Product does not exists"
-        }), 400
+        }), 400   
             
 @app.route('/productsShoe', methods=['PUT'])
 def update_products():
