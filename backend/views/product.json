@@ -1,83 +1,81 @@
 {
-  "product_data":[
-{
-  "product_ID": 301,
-  "description": "Comfortable running shoes",
-  "image": "shoes1.jpg",
-  "name": "RunFast",
-  "price": 59.99
-},
-
-{
-  "product_ID": 302,
-  "description": "Stylish leather wallet",
-  "image": "wallet1.jpg",
-  "name": "LeatherLux",
-  "price": 29.99
-},
-
-{
-  "product_ID": 303,
-  "description": "Elegant wristwatch",
-  "image": "watch1.jpg",
-  "name": "TimeMaster",
-  "price": 199.99
-},
-
-{
-  "product_ID": 304,
-  "description": "Casual t-shirt",
-  "image": "tshirt1.jpg",
-  "name": "CasualComfort",
-  "price": 19.99
-},
-
-{
-  "product_ID": 305,
-  "description": "Slim-fit jeans",
-  "image": "jeans1.jpg",
-  "name": "SlimStyle",
-  "price": 49.99
-},
-
-{
-  "product_ID": 306,
-  "description": "Classic sunglasses",
-  "image": "sunglasses1.jpg",
-  "name": "SunShield",
-  "price": 99.99
-},
-
-{
-  "product_ID": 307,
-  "description": "Leather jacket",
-  "image": "jacket1.jpg",
-  "name": "UrbanRider",
-  "price": 149.99
-},
-
-{
-  "product_ID": 308,
-  "description": "Sports backpack",
-  "image": "backpack1.jpg",
-  "name": "SportPack",
-  "price": 39.99
-},
-
-{
-  "product_ID": 309,
-  "description": "Running shorts",
-  "image": "shorts1.jpg",
-  "name": "QuickStride",
-  "price": 24.99
-},
-
-{
-  "product_ID": 310,
-  "description": "Fitness tracker",
-  "image": "tracker1.jpg",
-  "name": "FitMonitor",
-  "price": 89.99
-}
-]
+    "product_data": [
+        {
+            "product_ID": 1,
+            "name": "Running Shoes",
+            "description": "Comfortable running shoes for daily workouts.",
+            "price": 49.99,
+            "image": "running_shoes.jpg",
+            "accessory_type": null,
+            "accessory_gender": null,
+            "accessory_usage": null,
+            "shoe_color": "Red",
+            "shoe_size": "42",
+            "shoe_material": "Mesh",
+            "shoe_gender": "Unisex"
+        },
+        {
+            "product_ID": 2,
+            "name": "Leather Wallet",
+            "description": "Premium leather wallet with multiple card slots.",
+            "price": 29.99,
+            "image": "leather_wallet.jpg",
+            "accessory_type": "Wallet",
+            "accessory_gender": "Male",
+            "accessory_usage": "Daily",
+            "shoe_color": null,
+            "shoe_size": null,
+            "shoe_material": null,
+            "shoe_gender": null
+        },
+        {
+            "product_ID": 3,
+            "name": "Summer Hat 24'",
+            "description": "",
+            "price": "",
+            "image": "",
+            "accessory_type": "Hat",
+            "accessory_gender": "Female",
+            "accessory_usage": "Outdoor",
+            "shoe_color": null,
+            "shoe_size": null,
+            "shoe_material": null,
+            "shoe_gender": null
+        },
+        {
+            "product_ID": 4,
+            "name": "Casual Sneakers",
+            "description": "Versatile sneakers for casual wear.",
+            "price": 59.99,
+            "image": "casual_sneakers.jpg",
+            "accessory_type": null,
+            "accessory_gender": null,
+            "accessory_usage": null,
+            "shoe_color": "Blue",
+            "shoe_size": "44",
+            "shoe_material": "Canvas",
+            "shoe_gender": "Male"
+        },
+        {
+            "name": "Nike Air Force 1 1996'",
+            "description": "",
+            "price": "",
+            "image": "",
+            "product_ID": 5
+        },
+        {
+            "product_ID": 6,
+            "name": "Nike Air Force 1",
+            "description": "rrrr",
+            "price": "45454",
+            "image": null,
+            "accessory_type": null,
+            "accessory_gender": null,
+            "accessory_usage": null,
+            "shoe_color": null,
+            "shoe_size": null,
+            "shoe_material": null,
+            "shoe_gender": null
+        }
+    ]
 }

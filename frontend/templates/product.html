@@ -3,62 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
+    <title>Product Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .product {
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .product img {
-            max-width: 150px;
-            margin-right: 20px;
-        }
-        .product-detail {
-            margin-left: 20px;
-        }
-        .product-detail p {
-            margin: 5px 0;
-        }
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1, h2 { color: #333; }
+        form { margin-bottom: 20px; }
+        input, select, textarea { margin-bottom: 10px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .error { color: red; }
     </style>
 </head>
 <body>
-    <h1>Product Details</h1>
-    <div id="product-container"></div>
+    <h1>Product Management</h1>
+
+    <h2>Search Product by ID</h2>
+    <form id="searchProductForm">
+        <label for="search_product_ID">Product ID:</label>
+        <input type="number" id="search_product_ID" name="search_product_ID" required>
+        <input type="submit" value="Search Products">
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <div id="productResults">
+        {% if products %}
+            <h2>Products {% if search_id %}for Product ID: {{ search_id }}{% endif %}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Accessory Type</th>
+                        <th>Accessory Gender</th>
+                        <th>Accessory Usage</th>
+                        <th>Shoe Color</th>
+                        <th>Shoe Size</th>
+                        <th>Shoe Material</th>
+                        <th>Shoe Gender</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.product_ID }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.image }}</td>
+                        <td>{{ product.accessory_type }}</td>
+                        <td>{{ product.accessory_gender }}</td>
+                        <td>{{ product.accessory_usage }}</td>
+                        <td>{{ product.shoe_color }}</td>
+                        <td>{{ product.shoe_size }}</td>
+                        <td>{{ product.shoe_material }}</td>
+                        <td>{{ product.shoe_gender }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        {% else %}
+            <p>No products found.</p>
+        {% endif %}
+    </div>
+
+    <h2>Add New Product</h2>
+<form id="addProductForm">
+    <label for="name">Product Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="price">Price:</label>
+    <input type="number" step="0.01" id="price" name="price" required>
+
+    <label for="image">Image:</label>
+    <input type="text" id="image" name="image">
+
+    <label for="accessory_type">Accessory Type:</label>
+    <input type="text" id="accessory_type" name="accessory_type">
+
+    <label for="accessory_gender">Accessory Gender:</label>
+    <input type="text" id="accessory_gender" name="accessory_gender">
+
+    <label for="accessory_usage">Accessory Usage:</label>
+    <input type="text" id="accessory_usage" name="accessory_usage">
+
+    <label for="shoe_color">Shoe Color:</label>
+    <input type="text" id="shoe_color" name="shoe_color">
+
+    <label for="shoe_size">Shoe Size:</label>
+    <input type="text" id="shoe_size" name="shoe_size">
+
+    <label for="shoe_material">Shoe Material:</label>
+    <input type="text" id="shoe_material" name="shoe_material">
+
+    <label for="shoe_gender">Shoe Gender:</label>
+    <input type="text" id="shoe_gender" name="shoe_gender">
+
+    <input type="submit" value="Add Product">
+</form>
+
+<h2>Update Product</h2>
+<form id="updateProductForm">
+    <label for="update_product_ID">Product ID:</label>
+    <input type="number" id="update_product_ID" name="update_product_ID" required>
+
+    <label for="update_name">New Name:</label>
+    <input type="text" id="update_name" name="update_name">
+
+    <label for="update_description">New Description:</label>
+    <textarea id="update_description" name="update_description"></textarea>
+
+    <label for="update_price">New Price:</label>
+    <input type="number" step="0.01" id="update_price" name="update_price">
+
+    <label for="update_image">New Image:</label>
+    <input type="text" id="update_image" name="update_image">
+
+    <label for="update_accessory_type">New Accessory Type:</label>
+    <input type="text" id="update_accessory_type" name="update_accessory_type">
+
+    <label for="update_accessory_gender">New Accessory Gender:</label>
+    <input type="text" id="update_accessory_gender" name="update_accessory_gender">
+
+    <label for="update_accessory_usage">New Accessory Usage:</label>
+    <input type="text" id="update_accessory_usage" name="update_accessory_usage">
+
+    <label for="update_shoe_color">New Shoe Color:</label>
+    <input type="text" id="update_shoe_color" name="update_shoe_color">
+
+    <label for="update_shoe_size">New Shoe Size:</label>
+    <input type="text" id="update_shoe_size" name="update_shoe_size">
+
+    <label for="update_shoe_material">New Shoe Material:</label>
+    <input type="text" id="update_shoe_material" name="update_shoe_material">
+
+    <label for="update_shoe_gender">New Shoe Gender:</label>
+    <input type="text" id="update_shoe_gender" name="update_shoe_gender">
+
+    <input type="submit" value="Update Product">
+</form>
+
+    <h2>Delete Product</h2>
+    <form id="deleteProductForm">
+        <label for="delete_product_ID">Product ID to Delete:</label>
+        <input type="number" id="delete_product_ID" name="delete_product_ID" required>
+
+        <input type="submit" value="Delete Product">
+    </form>
+
+    <div id="result"></div>
 
     <script>
-        // Fetch the Product data from the backend
-        fetch('/product')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // Log the data to verify it's being received correctly
-                const productContainer = document.getElementById('product-container');
-                
-                // Check if the data is wrapped in a 'data' property
-                const productData = data.data || data;
-                
-                // Create HTML for each product
-                productData.forEach(product => {
-                    const productDiv = document.createElement('div');
-                    productDiv.classList.add('product');
-
-                    let productHtml = `
-                        <img src="static/images/${product.image}" alt="${product.name}">
-                        <div class="product-detail">
-                            <h2>${product.name}</h2>
-                            <p><strong>Description:</strong> ${product.description}</p>
-                            <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
-                            <p><strong>Product ID:</strong> ${product.product_ID}</p>
-                        </div>
-                    `;
-
-                    productDiv.innerHTML = productHtml;
-                    productContainer.appendChild(productDiv);
+    $(document).ready(function() {
+        function displayProducts(products) {
+            var html = '';
+            if (products && products.length > 0) {
+                html += '<h2>Products for Product ID: ' + products[0].product_ID + '</h2>';
+                html += '<table><thead><tr><th>Product ID</th><th>Name</th><th>Description</th><th>Price</th><th>Image</th></tr></thead><tbody>';
+                products.forEach(function(product) {
+                    html += '<tr>';
+                    html += '<td>' + product.product_ID + '</td>';
+                    html += '<td>' + product.name + '</td>';
+                    html += '<td>' + product.description + '</td>';
+                    html += '<td>' + product.price + '</td>';
+                    html += '<td>' + product.image + '</td>';
+                    html += '</tr>';
                 });
-            })
-            .catch(error => console.error('Error fetching product data:', error));
+                html += '</tbody></table>';
+            } else {
+                html += '<p>No products found for this ID.</p>';
+            }
+            $('#productResults').html(html);
+        }
+
+        $('#searchProductForm').submit(function(e) {
+            e.preventDefault();
+            var searchProductId = $('#search_product_ID').val();
+            $.ajax({
+                url: '/product?search_product_ID=' + searchProductId,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    displayProducts(response);
+                },
+                error: function(xhr) {
+                    $('#productResults').html('<p class="error">' + xhr.responseJSON.error + '</p>');
+                }
+            });
+        });
+
+        $('#addProductForm').submit(function(e) {
+            e.preventDefault();
+            
+            var formData = {
+                product_ID: $('#product_ID').val() || null,
+                name: $('#name').val() || null,
+                description: $('#description').val() || null,
+                price: $('#price').val() || null,
+                image: $('#image').val() || null,
+                accessory_type: $('#accessory_type').val() || null,
+                accessory_gender: $('#accessory_gender').val() || null,
+                accessory_usage: $('#accessory_usage').val() || null,
+                shoe_color: $('#shoe_color').val() || null,
+                shoe_size: $('#shoe_size').val() || null,
+                shoe_material: $('#shoe_material').val() || null,
+                shoe_gender: $('#shoe_gender').val() || null
+            };
+            
+            $.ajax({
+                url: '/product',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    $('#result').html('<p>' + response.message + '</p>');
+                },
+                error: function(xhr) {
+                    $('#result').html('<p class="error">' + xhr.responseJSON.error + '</p>');
+                }
+            });
+        });
+
+
+        $('#updateProductForm').submit(function(e) {
+            e.preventDefault();
+            var updateProductId = $('#update_product_ID').val();
+            var formData = {
+                name: $('#update_name').val(),
+                description: $('#update_description').val(),
+                price: $('#update_price').val(),
+                image: $('#update_image').val()
+            };
+            $.ajax({
+                url: '/product/' + updateProductId,
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    $('#result').html('<p>' + response.message + '</p>');
+                },
+                error: function(xhr) {
+                    $('#result').html('<p class="error">' + xhr.responseJSON.error + '</p>');
+                }
+            });
+        }); 
+
+        $('#deleteProductForm').submit(function(e) {
+            e.preventDefault();
+            var deleteProductId = $('#delete_product_ID').val();
+            $.ajax({
+                url: '/product/' + deleteProductId,
+                method: 'DELETE',
+                success: function(response) {
+                    $('#result').html('<p>' + response.message + '</p>');
+                },
+                error: function(xhr) {
+                    $('#result').html('<p class="error">' + xhr.responseJSON.error + '</p>');
+                }
+            });
+        });
+    });
     </script>
 </body>
 </html>

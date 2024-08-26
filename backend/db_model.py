@@ -133,6 +133,9 @@ db_manager = DBManager(
     port="3306"
 )
 
+print(db_manager.fetch_all('SELECT * FROM Users'))
+
+
 # Example of creating tables and inserting data
 # db_manager.execute_query("""CREATE TABLE IF NOT EXISTS newsletter 
 #                            (id INT AUTO_INCREMENT,
