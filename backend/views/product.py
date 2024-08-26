@@ -2,10 +2,10 @@ from flask import Flask, request, jsonify, render_template
 import json
 import os
 
-template_dir = os.path.abspath("/Users/Roman/Downloads/DB_Praktikum/WorkingDBPraktkum/frontend/templates")
+template_dir = os.path.abspath("/Users/Roman/Downloads/WorkingDBPraktkum/frontend/templates")
 app = Flask(__name__, template_folder=template_dir, static_folder=os.path.join(template_dir, 'static'))
  
-with open('/Users/Roman/Downloads/DB_Praktikum/WorkingDBPraktkum/backend/views/product.json', 'r') as file:
+with open('/Users/Roman/Downloads/WorkingDBPraktkum/backend/views/product.json', 'r') as file:
     data = json.load(file)
     
 product_data = data['product_data']
@@ -18,12 +18,9 @@ def product():
     
 @app.route('/product', methods=['POST'])
 def create_product():
-    # Parse JSON data from the request
     data = request.get_json()
-    # Extract product from the JSON data
     product_ID = data.get("product_ID")
- 
-    # Check if the products exists 
+
     for product in product_data:
         if product("product_ID") == product_ID:
             return jsonify({

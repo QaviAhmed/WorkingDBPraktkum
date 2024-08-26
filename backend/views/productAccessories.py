@@ -1,12 +1,14 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import json
- 
-with open('/Users/Roman/Downloads/DB_Praktikum/WorkingDBPraktkum/backend/views/productAccessories.json', 'r') as file:
+import os
+
+template_dir = os.path.abspath("/Users/Roman/Downloads/WorkingDBPraktkum/frontend/templates")
+app = Flask(__name__, template_folder=template_dir, static_folder=os.path.join(template_dir, 'static'))
+
+with open('/Users/Roman/Downloads/WorkingDBPraktkum/backend/views/productAccessories.json', 'r') as file:
     data = json.load(file)
     
 product_accessories_data = data['product_accessories_data']
-app = Flask(__name__)
- 
  
 @app.route('/productAccessories', methods=['GET'])
 def product_accessories():
@@ -60,6 +62,10 @@ def update_products_accessories():
             return jsonify({
             "message": "Product does not exists"
         }), 400
+            
+@app.route('/productAccessories/ui', methods=['GET'])
+def product_ui():
+    return render_template('productAccessories.html')
 
    
 if __name__ == '__main__':

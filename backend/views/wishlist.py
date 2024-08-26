@@ -1,12 +1,14 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import json
- 
+import os
+
+template_dir = os.path.abspath("/Users/Roman/Downloads/WorkingDBPraktkum/frontend/templates")
+app = Flask(__name__, template_folder=template_dir, static_folder=os.path.join(template_dir, 'static'))
+
 with open('backend/views/wishlist.json', 'r') as file:
     data = json.load(file)
     
 wishlist_data = data['wishlist_data']
-app = Flask(__name__)
- 
  
 @app.route('/wishlist', methods=['GET'])
 def product_accessories():
@@ -61,6 +63,9 @@ def update_wishlist():
             "message": "Product does not exists"
         }), 400
 
-   
+@app.route('/wishlist/ui', methods=['GET'])
+def product_ui():
+    return render_template('wishlist.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
