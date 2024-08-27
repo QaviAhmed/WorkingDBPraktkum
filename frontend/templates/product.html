@@ -237,7 +237,7 @@
         });
 
 
-        $('#updateProductForm').submit(function(e) {
+        /* $('#updateProductForm').submit(function(e) {
             e.preventDefault();
             var updateProductId = $('#update_product_ID').val();
             var formData = {
@@ -258,7 +258,41 @@
                     $('#result').html('<p class="error">' + xhr.responseJSON.error + '</p>');
                 }
             });
-        }); 
+        }); */ 
+        $('#updateProductForm').submit(function(e) {
+            e.preventDefault();
+            
+            var updateProductId = $('#update_product_ID').val();
+            var formData = {};
+            
+            // Check if each field has a value and add it to formData only if it's not empty
+            if ($('#update_name').val()) formData.name = $('#update_name').val();
+            if ($('#update_description').val()) formData.description = $('#update_description').val();
+            if ($('#update_price').val()) formData.price = $('#update_price').val();
+            if ($('#update_image').val()) formData.image = $('#update_image').val();
+            if ($('#update_accessory_type').val()) formData.accessory_type = $('#update_accessory_type').val();
+            if ($('#update_accessory_gender').val()) formData.accessory_gender = $('#update_accessory_gender').val();
+            if ($('#update_accessory_usage').val()) formData.accessory_usage = $('#update_accessory_usage').val();
+            if ($('#update_shoe_color').val()) formData.shoe_color = $('#update_shoe_color').val();
+            if ($('#update_shoe_size').val()) formData.shoe_size = $('#update_shoe_size').val();
+            if ($('#update_shoe_material').val()) formData.shoe_material = $('#update_shoe_material').val();
+            if ($('#update_shoe_gender').val()) formData.shoe_gender = $('#update_shoe_gender').val();
+
+            $.ajax({
+                url: '/product/' + updateProductId,
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    $('#result').html('<p>' + response.message + '</p>');
+                },
+                error: function(xhr) {
+                    $('#result').html('<p class="error">' + xhr.responseJSON.error + '</p>');
+                }
+            });
+        });
+
+
 
         $('#deleteProductForm').submit(function(e) {
             e.preventDefault();

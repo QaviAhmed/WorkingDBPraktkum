@@ -64,10 +64,10 @@
             "product_ID": 5
         },
         {
-            "product_ID": 6,
-            "name": "Nike Air Force 1",
-            "description": "rrrr",
-            "price": "45454",
+            "product_ID": 7,
+            "name": "Puma RS-RX 3",
+            "description": "Neu",
+            "price": "149",
             "image": null,
             "accessory_type": null,
             "accessory_gender": null,
