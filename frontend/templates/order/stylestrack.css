@@ -1,0 +1,145 @@
+/* Basic Reset */
+body, h1, h2, h3, p, ul, a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+
+/* Track Order Section */
+.track-order {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.track-order h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.track-order h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.order-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.progress-step {
+    text-align: center;
+    width: 100%;
+    position: relative;
+}
+
+.progress-step p {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.progress-step:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ccc;
+    z-index: 1;
+}
+
+.progress-step:after {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 2px solid #48bb78;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.progress-step.completed:after {
+    background-color: #48bb78;
+}
+
+.progress-step:first-child:before {
+    left: 50%;
+}
+
+.progress-step:last-child:before {
+    right: 50%;
+}
+
+.order-summary {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.item-number {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.item-image {
+    background-color: #ddd;
+    width: 150px;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.item-details {
+    flex-grow: 1;
+    font-size: 16px;
+    color: #555;
+}
+
+.item-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.track-order-button {
+    background-color: #48bb78;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.return-policy {
+    color: #ff6666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+

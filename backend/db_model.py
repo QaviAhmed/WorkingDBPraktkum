@@ -18,6 +18,7 @@ class DBManager:
             user=user,
             password=password,
             port=int(port),  # Ensure port is passed as an integer
+            ssl=False
         )
         self.__create_db_if_not_exists(dbName)
         self.connection_pool.close()
@@ -30,7 +31,8 @@ class DBManager:
             user=user,
             password=password,
             port=int(port),  # Ensure port is passed as an integer
-            database=dbName
+            database=dbName,
+            ssl=False
         )
         
     def __create_db_if_not_exists(self, dbName):
@@ -120,19 +122,34 @@ class DBManager:
     def fetch_many(cursor, n):
         columns = [col[0] for col in cursor.description]
         return cursor.fetchmany(n)
+    
+    def run_sql_script(self, sql_file_path):
+        with open(sql_file_path, 'r') as file:
+            sql_script = file.read()
+
+            # Split the script into individual SQL statements
+            sql_commands = sql_script.split(';')
+
+            for command in sql_commands:
+                command = command.strip()
+                if command:  # Avoid empty commands
+                    self.execute_query(command)
+                    print(f"Executed command: {command}")
+        print("All commands executed successfully.")
 
 # creating the connections
 db_manager = DBManager(
     poolName="shoeshop_pool",
     poolSize=5,
     poolResetSession=True,
-    host="localhost",
-    user="root",
-    password="pass",
-    dbName="db_shoeshop",
-    port="3306"
+    host="shoeyou.local",
+    user="db_main",
+    password="dbteamd",
+    dbName="db_shoeyou",
+    port="3307"
 )
-
+"""db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/table_script.sql")
+db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/creation_script.sql")"""
 # Example of creating tables and inserting data
 # db_manager.execute_query("""CREATE TABLE IF NOT EXISTS newsletter 
 #                            (id INT AUTO_INCREMENT,

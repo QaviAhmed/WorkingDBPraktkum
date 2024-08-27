@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShoesYou - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/stylesLogin.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <a href="/"><h1>ShoesYou</h1></a>
+
+        </div>
+        <div class="login-content">
+            <div class="login-image">
+                <img src="{{ url_for('static',filename='pics/1st.jpg') }}"alt="Shoe Image">
+            </div>
+            <div class="login-form">
+                <h2>LOG IN</h2>
+                <form method="POST">
+                    <label>Email:</label>
+                    <input type="email" name="email"><br>
+                    <label>Password:</label>
+                    <input type="password" name="password"><br>
+                    <button type="submit">Login</button>
+                </form>
+                <div class="register-link">
+                    <p>Don't have an Account? <a href="registration">Register</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

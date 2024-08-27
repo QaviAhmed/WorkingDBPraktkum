@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShoesYou - Online shoes retail market</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" 
+    rel="stylesheet">
+    <link rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+
+</head>
+<body>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    font-family: roboto, Arial, Helvetica, sans-serif;
+    
+}
+
+.main-content{
+    min-height: 60vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(92, 93, 116, 0.7),rgba(60, 59, 75, 0.2)), 
+    url("{{ url_for('static', filename='pics/banner.jpg') }}");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: white;
+    width: 250px;
+    height: 25px;
+    margin-left: 30px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding-left: 10px;
+    font-size: 14px;
+    flex-grow: 1;
+    border-radius: 20px;
+    height: 100%;
+}
+
+.search-bar button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+nav{
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+
+}
+
+nav img{
+    width: 100px;
+    border-radius: 50%;
+}
+
+.nav-links{
+    flex: 1;
+    text-align: right;
+
+}
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+    transition: background-color 0.3s;
+    border-radius: 20px;
+}
+
+.nav-links ul li a{
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid;
+    border-color: transparent;
+    padding: 15px;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+
+.text-box{
+    width: 90%;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.text-box h1{
+    font-size: 62px;
+}
+
+.text-box p{
+    margin: 10px 0 40px;
+    font-size: 14px;
+    color: white;
+}
+
+.hero-btn{
+    display: inline-block;   
+    text-decoration: none;
+    color: white;
+    border: 1px solid;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+
+.under-btn{
+    display: inline-block;
+    text-decoration: none;
+    color:#181e2b ;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 20px;
+    text-align: center;
+    padding: 15px 30px 10px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-right: 10px;
+
+}
+
+.under-btn:active{
+    opacity: 20%;
+}
+
+
+
+nav .fa{
+    display: none;
+}
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-section h3 {
+    margin-top: 0;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 5px;
+}
+
+
+.listings{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+    margin-bottom: 100px;
+}
+
+.listings-col{
+    flex-basis: 31%;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    text-align: left;
+}
+
+.listings-col img{
+    width: 100%;
+    border-radius: 10px
+}
+
+.listings-col p{
+    padding: 0;
+}
+.listings-col h3{
+    margin-top: 16px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+
+
+/* call to action*/
+
+.cta{
+    margin: 100px auto;
+    width: 100%;
+    background-image: linear-gradient(rgba(122, 135, 158, 0.5),
+    rgba(95, 94, 94, 0.5)), 
+    url(images/more/LillyandKanwalbanner.jpg);
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+    text-align: center;
+    padding: 200px 0;
+}
+
+.cta h1{
+    color: white;
+    margin-bottom: 40px;
+    padding: 0;
+}
+
+.course{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+
+h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+
+p{
+    color: #777;
+    font-size: 14x;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+}
+
+.course-col{
+    flex-basis: 31%;
+    background-color: #d7eec7;
+    border-radius: 20px;
+    padding: 20px 12px;
+    margin-bottom: 5%;
+    box-sizing: border-box;
+    transition: box-shadow 0.2s;
+
+}
+
+h3{
+    text-align: center;
+    font-weight: 600;
+    margin: 10px 0px;
+}
+
+.course-col:hover{
+    box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+}
+
+.featured{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+
+.featured-col{
+    flex-basis: 32%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-col img{
+    width: 100%;
+    display: block;
+}
+
+.layer{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.2s;
+}
+
+.layer:hover{
+    background: rgba(134, 135, 151, 0.7);
+}
+
+.layer h3{
+    width: 100%;
+    color: white;
+    font-weight: 600;
+    font-size: 26px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    opacity: 0;
+    transition: 0.5s;
+
+}
+.layer:hover h3{
+    bottom: 45%;    
+    opacity: 1;
+}
+.product-list{
+    padding: 30px 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}
+</style>
+
+</head>
+<body>
+    {% if user %}
+        {% if user['role'] == 'Seller' %}
+        <header class="header">
+            <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
+                <div style="display: flex; align-items:center;">
+                    <a href="/frontend/main /index.html" class="logo">
+                        <img src="pics/Logo2.png" alt="ShoesYou">
+                    </a>
+                    <a href="">Categories</a>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search...">
+                    <button type="submit" onclick="searchItems()">&#128269;</button>
+                </div>
+                <div style="display:flex;justify-content:end; text-align:end;" >
+                    <button class="under-btn">Your Shop</button>
+                        <img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 10%;">
+                        <img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 10%;">
+                        <img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 10%;">
+                    </div>
+            </nav>
+        </header>
+        {% else %}
+        <header class="header">
+            <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
+                <div style="display: flex; align-items:center;">
+                    <a href="/frontend/main /index.html" class="logo">
+                        <img src="pics/Logo2.png" alt="ShoesYou">
+                    </a>
+                    <a href="">Categories</a>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search...">
+                    <button type="submit" onclick="searchItems()">&#128269;</button>
+                </div>
+                <div style="display:flex;justify-content:end; text-align:end;" >
+                    <button class="under-btn">Become a Seller!</button>
+                    <img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 10%;">
+                    <img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 10%;">
+                    <img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 10%;">
+                </div>
+            </nav>
+        </header>
+        {% endif %}
+    {% else %}
+        <header class="header">
+            <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
+                <div style="display: flex; align-items:center;">
+                    <a href="/main/Home.html" class="logo">
+                        <img src="pics/Logo2.png" alt="ShoesYou">
+                    </a>
+                    <a href="">Categories</a>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search...">
+                    <button type="submit" onclick="searchItems()">&#128269;</button>
+                </div>
+                <div style="display:flex;justify-content:end; text-align:end;" >
+                    <a href="/login"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 10%;"></a>
+                    
+                </div>
+            </nav>
+        </header>
+    {% endif %}
+
+    <!------Main Section------>
+        <section class="main-content">
+            <div class="text-box">
+                <h2>Your favourite shoes selling platform</h2>
+                <a href="about.html" class="hero-btn">Click Here For More</a>
+            </div>
+        </section>
+    
+
+<!------Quick Look------>
+<section class="featured flex flex-col gap-5">
+    <h1 style="text-align: left;">New Trends</h1>
+    <p style="text-align: left;">Check out the finest shoes stypes that are popular right now!</p>
+
+    <section class="category-page p-12">
+        <h1>Sneakers</h1>
+        <div class="product-list">
+            <!-- Product Item -->
+             {% block content %}
+             {% for product in products_data %}
+            <div class="product-item">
+                <div class="product-image"></div>
+                <div class="product-details">
+                    <h3>{{product['product_ID']}}</h3>
+                    <p>{{product['price']}} $</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% endblock %}
+        </div>
+    </section>
+
+
+</section>
+
+
+
+
+
+<!----New listings---->
+
+<section class="listings">
+    <h1 style="text-align: left;">Latest Ads</h1>
+    
+
+    <div class="row">
+        <div class="listings-col">
+            
+            <a href="/frontend/product/product.html"><img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt=""></a>
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col" >
+            <img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+        
+        </div>
+    </div>
+    <div class="row">
+        <div class="listings-col">
+            <img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+        
+        </div>
+    </div>
+    <div class="row">
+        <div class="listings-col">
+            <img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="{{url_for('static',filename='pics/shoe.jpg')}}" alt="">
+            <h3>shoes</h3>
+            <p>1 Billionen</p>
+        
+        </div>
+    </div>
+
+</section>
+
+<!-----javascript for toggle menu------>
+
+<script>
+
+    var navLinks = document.getElementById("navLinks")
+
+    function showmenu(){
+        navLinks.style.right ="0";
+    }
+    function hidemenu(){
+        navLinks.style.right ="-200px";
+    }
+
+</script>
+    
+    <footer>
+        <div class="footer-section">
+            <h3>ShoesYou</h3>
+            <ul>
+                <li>Über uns</li>
+                <li>News Agents</li>
+                <li>Mobile Apps</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Informationen</h3>
+            <ul>
+                <li>Hilfe</li>
+                <li>Tipps für deine Sicherheit</li>
+                <li>Impressum</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Social Media</h3>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>TikTok</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Allgemein</h3>
+            <ul>
+                <li>Datenschutz</li>
+                <li>Anzeigen Übersicht</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

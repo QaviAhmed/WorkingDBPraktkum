@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+
+    <title>ShoesYou - Online shoes retail market</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" 
+    rel="stylesheet">
+    <link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <header class="header">
+        <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
+            <div style="display: flex; align-items:center;">
+                <a href="/frontend/main /index.html" class="logo">
+                    <img src="pics/Logo2.png" alt="ShoesYou">
+                </a>
+                <a href="">Categories</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search...">
+                <button type="submit" onclick="searchItems()">&#128269;</button>
+            </div>
+            <div style="display:flex;justify-content:end; text-align:end;" >
+                <button class="under-btn">Your Shop</button>
+
+                <img src="pics/wishlist.PNG" alt="User Icon" style="width: 15%;">
+                <img src="pics/cart.PNG" alt="User Icon" style="width: 15%;">
+                <img src="pics/user.jpeg" alt="User Icon" style="width: 11%;">
+            </div>
+        </nav>
+    </header>
+
+<!------Main-Content------>
+
+    <section class="main-content">
+        <div class="text-box">
+            <h2>Your favourite shoes selling platform</h2>
+            <a href="about.html" class="hero-btn">Click Here For More</a>
+        </div>
+    </section>
+
+
+
+<!------Quick Look------>
+<section class="featured">
+    <h1 style="text-align: left;">New Trends</h1>
+    <p style="text-align: left;">Check out the finest shoes stypes that are popular right now!</p>
+
+    <div class="row">
+        <div class="featured-col">
+                <img src="pics/1st.jpg" alt=""style="width: 110%;">
+                <div class="layer">
+                    <h3>
+                    </h3>
+                    
+                </div>
+        </div>
+        <div class="featured-col">
+            <img src="pics/2nd.jpg" alt=""style="width: 102%;" >
+            <div class="layer">
+                <h3>
+                </h3>
+            </div>
+    </div>
+     <div class="featured-col">
+                <img src="pics/3rd.jpg" alt="" style="width: 230%;">
+                <div class="layer">
+                    <h3></h3>
+                </div>
+        </div>
+    </div>
+
+
+</section>
+
+<!----New listings---->
+
+<section class="listings">
+    <h1 style="text-align: left;">Latest Ads</h1>
+    
+
+    <div class="row">
+        <div class="listings-col">
+            <a href="/frontend/product/product.html"><img src="pics/shoe.jpg" alt=""></a>
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="pics/shoe.jpg" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col" >
+            <img src="pics/shoe.jpg" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+        
+        </div>
+    </div>
+    <div class="row">
+        <div class="listings-col">
+            <img src="pics/shoe.jpg" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="pics/shoe.jpg" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="pics/shoe.jpg" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+        
+        </div>
+    </div>
+    <div class="row">
+        <div class="listings-col">
+            <img src="pics/shoe.jpg" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="pics/shoe.jpg" alt="">
+            <h3>Shoes</h3>
+            <p>1 Billionen</p>
+          
+        </div>
+        <div class="listings-col">
+            <img src="pics/shoe.jpg" alt="">
+            <h3>shoes</h3>
+            <p>1 Billionen</p>
+        
+        </div>
+    </div>
+
+
+</section>
+
+<!-----javascript for toggle menu------>
+
+<script>
+
+    var navLinks = document.getElementById("navLinks")
+
+    function showmenu(){
+        navLinks.style.right ="0";
+    }
+    function hidemenu(){
+        navLinks.style.right ="-200px";
+    }
+
+</script>
+    
+    <footer>
+        <div class="footer-section">
+            <h3>ShoesYou</h3>
+            <ul>
+                <li>Über uns</li>
+                <li>News Agents</li>
+                <li>Mobile Apps</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Informationen</h3>
+            <ul>
+                <li>Hilfe</li>
+                <li>Tipps für deine Sicherheit</li>
+                <li>Impressum</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Social Media</h3>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>TikTok</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Allgemein</h3>
+            <ul>
+                <li>Datenschutz</li>
+                <li>Anzeigen Übersicht</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 -- Table: 
 
-CREATE TABLE Users (
+CREATE TABLE `User` (
     user_ID INT PRIMARY KEY,
     name VARCHAR(255),
     city VARCHAR(255),
@@ -19,7 +19,7 @@ CREATE TABLE Shop (
 CREATE TABLE Seller (
     user_ID INT PRIMARY KEY,
     shop_ID INT,
-    FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
+    FOREIGN KEY (user_ID) REFERENCES `User`(user_ID),
     FOREIGN KEY (shop_ID) REFERENCES Shop(shop_ID)
 );
 
@@ -39,8 +39,8 @@ CREATE TABLE HasChat (
     user_1 INT,
     user_2 INT,
     PRIMARY KEY (user_1, user_2),
-    FOREIGN KEY (user_1) REFERENCES Users(user_ID),
-    FOREIGN KEY (user_2) REFERENCES Users(user_ID)
+    FOREIGN KEY (user_1) REFERENCES `User`(user_ID),
+    FOREIGN KEY (user_2) REFERENCES `User`(user_ID)
 );
 
 -- Table: Product
@@ -76,7 +76,7 @@ CREATE TABLE Wishlist (
     user_ID INT,
     product_ID INT,
     PRIMARY KEY (user_ID, product_ID),
-    FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
+    FOREIGN KEY (user_ID) REFERENCES `User`(user_ID),
     FOREIGN KEY (product_ID) REFERENCES Product(product_ID)
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE `Order` (
     price DECIMAL(10, 2),
     user_ID INT,
     transaction_ID INT,
-    FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
+    FOREIGN KEY (user_ID) REFERENCES `User`(user_ID),
     FOREIGN KEY (transaction_ID) REFERENCES Payment(transaction_ID)
 );
 
@@ -96,6 +96,7 @@ CREATE TABLE `Order` (
 CREATE TABLE Contains (
     order_ID INT,
     product_ID INT,
+	quantity INT,
     PRIMARY KEY (order_ID, product_ID),
     FOREIGN KEY (order_ID) REFERENCES `Order`(order_ID),
     FOREIGN KEY (product_ID) REFERENCES Product(product_ID)
@@ -123,7 +124,7 @@ CREATE TABLE Feedback (
     product_ID INT,
     rating INT CHECK (rating >= 1 AND rating <= 5),
     comment TEXT,
-    FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
+    FOREIGN KEY (user_ID) REFERENCES `User`(user_ID),
     FOREIGN KEY (product_ID) REFERENCES Product(product_ID)
 );
 

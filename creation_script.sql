@@ -1,0 +1,195 @@
+-- Sample data for Users table
+INSERT INTO `User` (user_ID, name, city, birthdate, email, `password`)
+VALUES 
+(1, 'John Doe', 'New York', '1980-05-10', 'john@example.com', 'password123'),
+(2, 'Jane Smith', 'Los Angeles', '1990-08-15', 'jane@example.com', 'password456'),
+(3, 'Alice Johnson', 'Chicago', '1985-12-20', 'alice@example.com', 'password789'),
+(4, 'Bob Brown', 'Houston', '1975-02-25', 'bob@example.com', 'password321'),
+(5, 'Charlie Davis', 'Phoenix', '2000-03-05', 'charlie@example.com', 'password654'),
+(6, 'David Evans', 'Philadelphia', '1995-11-30', 'david@example.com', 'password987'),
+(7, 'Eva Miller', 'San Antonio', '1983-07-14', 'eva@example.com', 'password159'),
+(8, 'Frank Wilson', 'San Diego', '1992-09-22', 'frank@example.com', 'password753'),
+(9, 'Grace Lee', 'Dallas', '1998-01-17', 'grace@example.com', 'password4567'),
+(10, 'Henry Clark', 'San Jose', '1979-06-29', 'henry@example.com', 'password1234');
+
+-- Sample data for Shop table
+INSERT INTO Shop (shop_ID, name)
+VALUES
+(1, 'Footwear Express'),
+(2, 'Accessory World'),
+(3, 'Shoe Galaxy'),
+(4, 'Trendsetter Shoes'),
+(5, 'Fashion Hub'),
+(6, 'Urban Accessories'),
+(7, 'Shoe Central'),
+(8, 'Accessory Palace'),
+(9, 'Fashion Zone'),
+(10, 'The Shoe Store');
+
+-- Sample data for Seller table (subclass of Users)
+INSERT INTO Seller (user_ID, shop_ID)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+-- Sample data for Visitor table
+INSERT INTO Visitor (temp_ID)
+VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6),
+(7),
+(8),
+(9),
+(10);
+
+-- Sample data for Payment table
+INSERT INTO Payment (transaction_ID, PPemail)
+VALUES
+(1, 'payment1@paypal.com'),
+(2, 'payment2@paypal.com'),
+(3, 'payment3@paypal.com'),
+(4, 'payment4@paypal.com'),
+(5, 'payment5@paypal.com'),
+(6, 'payment6@paypal.com'),
+(7, 'payment7@paypal.com'),
+(8, 'payment8@paypal.com'),
+(9, 'payment9@paypal.com'),
+(10, 'payment10@paypal.com');
+
+-- Sample data for HasChat table
+INSERT INTO HasChat (user_1, user_2)
+VALUES
+(1, 2),
+(1, 3),
+(2, 3),
+(2, 4),
+(3, 5),
+(4, 5),
+(6, 7),
+(7, 8),
+(8, 9),
+(9, 10);
+
+-- Sample data for Product table
+INSERT INTO Product (product_ID, description, image, name, price)
+VALUES
+(1, 'A stylish pair of running shoes.', NULL, 'Running Shoes', 59.99),
+(2, 'Elegant leather shoes for formal occasions.', NULL, 'Leather Shoes', 99.99),
+(3, 'Casual sneakers for everyday wear.', NULL, 'Sneakers', 49.99),
+(4, 'High heels for evening events.', NULL, 'High Heels', 79.99),
+(5, 'Comfortable sandals for summer.', NULL, 'Sandals', 39.99),
+(6, 'Waterproof hiking boots.', NULL, 'Hiking Boots', 89.99),
+(7, 'Stylish belt with a sleek design.', NULL, 'Leather Belt', 29.99),
+(8, 'A durable backpack with multiple compartments.', NULL, 'Backpack', 69.99),
+(9, 'Elegant wristwatch with a leather strap.', NULL, 'Wristwatch', 129.99),
+(10, 'Designer sunglasses with UV protection.', NULL, 'Sunglasses', 149.99);
+
+-- Sample data for ProductShoe table (subclass of Product)
+INSERT INTO ProductShoe (product_ID, color, size, material, gender)
+VALUES
+(1, 'Black', 9.5, 'Synthetic', 'Unisex'),
+(2, 'Brown', 10, 'Leather', 'Male'),
+(3, 'White', 8, 'Canvas', 'Female'),
+(4, 'Red', 7.5, 'Suede', 'Female'),
+(5, 'Blue', 9, 'Rubber', 'Unisex'),
+(6, 'Green', 10.5, 'Gore-Tex', 'Male');
+
+-- Sample data for ProductAccessories table (subclass of Product)
+INSERT INTO ProductAccessories (product_ID, type, gender, `usage`)
+VALUES
+(7, 'Belt', 'Male', 'Formal'),
+(8, 'Backpack', 'Unisex', 'Outdoor'),
+(9, 'Wristwatch', 'Female', 'Everyday'),
+(10, 'Sunglasses', 'Unisex', 'Outdoor');
+
+-- Sample data for Wishlist table
+INSERT INTO Wishlist (user_ID, product_ID)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+-- Sample data for Order table
+INSERT INTO `Order` (order_ID, status, date, price, user_ID, transaction_ID)
+VALUES
+(1, 'Processing', '2024-08-01', 59.99, 1, 1),
+(2, 'Shipped', '2024-08-02', 99.99, 2, 2),
+(3, 'Delivered', '2024-08-03', 49.99, 3, 3),
+(4, 'Cancelled', '2024-08-04', 79.99, 4, 4),
+(5, 'Processing', '2024-08-05', 39.99, 5, 5),
+(6, 'Shipped', '2024-08-06', 89.99, 6, 6),
+(7, 'Delivered', '2024-08-07', 29.99, 7, 7),
+(8, 'Processing', '2024-08-08', 69.99, 8, 8),
+(9, 'Shipped', '2024-08-09', 129.99, 9, 9),
+(10, 'Delivered', '2024-08-10', 149.99, 10, 10);
+
+-- Sample data for Contains table
+INSERT INTO Contains (order_ID, product_ID)
+VALUES
+(1, 1, 2),
+(2, 2, 3),
+(3, 3, 1),
+(4, 4, 4),
+(5, 5, 3),
+(6, 6, 3),
+(7, 7, 4),
+(8, 8, 1),
+(9, 9, 1),
+(10, 10, 12);
+
+-- Sample data for Category table
+INSERT INTO Category (category_ID, name)
+VALUES
+(1, 'Footwear'),
+(2, 'Accessories'),
+(3, 'Formal'),
+(4, 'Casual'),
+(5, 'Outdoor'),
+(6, 'Sports'),
+(7, 'Fashion'),
+(8, 'Luxury'),
+(9, 'Electronics'),
+(10, 'Home & Garden');
+
+-- Sample data for BelongsTo table
+INSERT INTO BelongsTo (category_ID, product_ID)
+VALUES
+(1, 1),
+(1, 2),
+(4, 3),
+(3, 2),
+(5, 6),
+(2, 7),
+(2, 8),
+(7, 9),
+(8, 10);
+
+-- Sample data for Feedback table
+INSERT INTO Feedback (feedback_ID, user_ID, product_ID, rating, comment)
+VALUES
+(1, 1, 1, 5, 'Great shoes, very comfortable!'),
+(2, 2, 2, 4, 'Good quality but a bit expensive.'),
+(3, 3, 3, 3, 'Average, nothing special.'),
+(4, 4, 4, 5, 'Love the design and fit.'),
+(5, 5, 5, 4, 'Nice sandals for the price.'),
+(6, 6, 6, 5, 'Perfect for hiking!'),
+(7, 7, 7, 3, 'Not as expected, but okay.');

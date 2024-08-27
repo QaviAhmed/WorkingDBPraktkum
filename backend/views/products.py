@@ -1,25 +1,25 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, Blueprint, abort
+from jinja2 import TemplateNotFound
 import json
+from db_model import db_manager
+from serialization import Serialization
+import os
  
- 
-# data = users
-#   return json.dumps({"status": "success", "data": data})
- 
-with open('/Users/Roman/Downloads/DB_Praktikum/WorkingDBPraktkum/backend/views/products.json', 'r') as file:
-    data = json.load(file)
-    
-products_data = data['products_data']
+template_dir = os.path.abspath("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/frontend/templates")
 
- 
-app = Flask(__name__)
- 
- 
-@app.route('/products', methods=['GET'])
+products_page = Blueprint('product_page', __name__,
+                        template_folder=f"{template_dir}/main")
+print(template_dir)
+    
+products_data = db_manager.fetch_all("SELECT * FROM Product;")
+serialized_data = Serialization(products_data, "Product", ['product_ID', 'description', 'image', 'name', 'price']).get_data()
+
+@products_page.route('/', methods=['GET'])
 def products():
-    return json.dumps({"status": "success", "data": products_data})
+    return render_template('index.html', products_data=serialized_data)
 
     
-@app.route('/products', methods=['POST'])
+@products_page.route('/products', methods=['POST'])
 def create_products():
     # Parse JSON data from the request
     data = request.get_json()
@@ -38,7 +38,7 @@ def create_products():
             "message": "Product added sucsessful"
         }), 200
 
-@app.route('/products', methods=['DELETE'])
+@products_page.route('/products', methods=['DELETE'])
 def delete_products():
     data = request.get_json()
     product_ID = data.get("product_ID")
@@ -54,7 +54,7 @@ def delete_products():
             "message": "Product does not exists"
         }), 400
             
-@app.route('/products', methods=['PUT'])
+@products_page.route('/products', methods=['PUT'])
 def update_products():
     data = request.get_json()
     product_ID = data.get("product_ID")
@@ -69,7 +69,3 @@ def update_products():
             return jsonify({
             "message": "Product does not exists"
         }), 400
-
-   
-if __name__ == '__main__':
-    app.run(debug=True)

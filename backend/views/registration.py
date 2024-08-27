@@ -1,37 +1,31 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
-import json
+from flask import Flask, render_template, request, redirect, url_for, jsonify, Blueprint, abort
+from http import HTTPStatus
 import os
-
-with open('/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/backend/views/users.json', 'r') as file:
-    data = json.load(file)
-
-users = data['users_data']
+from db_model import db_manager
+import random
+ 
+users = db_manager.fetch_all("SELECT * FROM User")
 
 template_dir = os.path.abspath("/Users/eduardgol/Desktop/OurProject/WorkingDBPraktkum/frontend/templates")
-app = Flask(__name__, template_folder=template_dir)
-
-
-@app.route('/registration', methods=['POST'])
-def registration():
-    data = request.get_json()
-    print(data)
-    name = data.get("name")
-    
-    # password = data.get('password')
+register_page = Blueprint('register_page',__name__, template_folder=f" {template_dir}/authorization")
  
-    # Check if the user exists and the password matches
-    for user in users:
-        if user["email"] != data.get("email"):
-            return jsonify({
-            "message": "Registration successful",
-        }), 200
-        else:
-            return render_template('falschRegister.html')
+ 
+@register_page.route('/registration', methods=['POST', 'GET'])
+def registration():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        city = request.form.get('city')
+        birthdate = request.form.get('birthdate')
+        id = random.randrange(0, 100000)
+        print(f"{name}, {email}, {password}, {city}, {city}, {birthdate}, {id}")
         
-    
-"""@app.route('/login', methods=['GET'])
-def login_get():
-    return json.dumps({"status": "success", "data": {"key": "Hello, world"}})
-   """
-if __name__ == '__main__':
-    app.run(debug=True)
+        for user in users:
+            if email in user:
+                return abort(409, "User exists already")
+        db_manager.execute_query("""INSERT INTO User 
+                                (user_ID, name, city, birthdate, email, password) VALUES(%s,%s,%s,%s,%s,%s)
+                """, (id, name, city, birthdate, email, password))
+        return redirect(url_for('main_page'))        
+    return render_template('register.html')
