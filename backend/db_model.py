@@ -94,7 +94,7 @@ class DBManager:
                 connection_obj = self.connection_pool.get_connection()
                 try:
                     cursor = connection_obj.cursor()
-                    cursor.execute(operation)
+                    cursor.execute(operation, args)
                     result = func(cursor, *args)
                     return result
                 except mariadb.Error as err:
@@ -109,17 +109,17 @@ class DBManager:
         return wrapper
 
     @__get_query
-    def fetch_all(cursor):
+    def fetch_all(cursor, *args):
         columns = [col[0] for col in cursor.description]
         return cursor.fetchall()
 
     @__get_query
-    def fetch_one(cursor):
+    def fetch_one(cursor, *args):
         columns = [col[0] for col in cursor.description]
         return cursor.fetchone()
 
     @__get_query
-    def fetch_many(cursor, n):
+    def fetch_many(cursor, n, *args):
         columns = [col[0] for col in cursor.description]
         return cursor.fetchmany(n)
     
@@ -148,8 +148,8 @@ db_manager = DBManager(
     dbName="db_shoeyou",
     port="3307"
 )
-"""db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/table_script.sql")
-db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/creation_script.sql")"""
+db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/table_script.sql")
+db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/creation_script.sql")
 # Example of creating tables and inserting data
 # db_manager.execute_query("""CREATE TABLE IF NOT EXISTS newsletter 
 #                            (id INT AUTO_INCREMENT,
