@@ -17,50 +17,51 @@ def products():
     category_id = request.args.get('category_id')
     search_query = request.args.get('search')
     
-    # Base query with joins
-    query = """
-    SELECT 
-        p.product_id,
-        p.name AS product_name,
-        p.description,
-        p.price,
-        p.image,
-        p.accessory_type,
-        p.accessory_gender,
-        p.accessory_usage,
-        p.shoe_color,
-        p.shoe_size,
-        p.shoe_material,
-        p.shoe_gender,
-        c.category_id,
-        c.name AS category_name
-    FROM 
-        Product p
-    JOIN 
-        BelongsTo b ON p.product_id = b.product_id
-    JOIN 
-        Category c ON b.category_id = c.category_id
-    """
-    
-    # Filtering by category if category_id is provided
     if category_id:
-        query += f" WHERE c.category_id = {category_id}"
+        # Call the stored procedure for category filtering
+        query = "CALL GetProductsByCategory(%s)"
+        params = (category_id,)
+    elif search_query:
+        # Call the stored procedure for search functionality
+        query = "CALL SearchProductsByName(%s)"
+        params = (search_query,)
+    else:
+        # Default to fetching all products without filtering or searching
+        query = """
+        SELECT 
+            p.product_id,
+            p.name AS product_name,
+            p.description,
+            p.price,
+            p.image,
+            p.accessory_type,
+            p.accessory_gender,
+            p.accessory_usage,
+            p.shoe_color,
+            p.shoe_size,
+            p.shoe_material,
+            p.shoe_gender,
+            c.category_id,
+            c.name AS category_name
+        FROM 
+            Product p
+        JOIN 
+            BelongsTo b ON p.product_id = b.product_id
+        JOIN 
+            Category c ON b.category_id = c.category_id
+        GROUP BY 
+            c.category_id, p.product_id
+        HAVING 
+            p.price > 0
+        ORDER BY 
+            p.price ASC;
+        """
+        params = ()
     
-    # Searching if search_query is provided
-    if search_query:
-        if 'WHERE' in query:
-            query += f" AND p.name LIKE '%{search_query}%'"
-        else:
-            query += f" WHERE p.name LIKE '%{search_query}%'"
+    # Fetch data from the database
+    products_data = db_manager.fetch_all(query, params)
     
-    # Grouping the results by category and filtering by price range using HAVING
-    query += """
-    GROUP BY c.category_id, p.product_id
-    HAVING p.price > 0
-    ORDER BY p.price ASC
-    """
-    # Fetch data from database
-    products_data = db_manager.fetch_all(query)
+    # Serialize the fetched data
     serialized_data = Serialization(products_data, "Product", [
         'product_id', 'product_name', 'description', 'price',
         'image', 'accessory_type', 'accessory_gender',
@@ -91,16 +92,37 @@ def combined_products():
 
 @products_page.route('/products/intersect', methods=['GET'])
 def intersect_products():
+    # uncorelated
     query = """
-    SELECT p.product_id, p.name
-    FROM Product p
-    WHERE p.price > 30
-    
-    INTERSECT
-    
-    SELECT p.product_id, p.name
-    FROM Product p
-    WHERE p.price < 100
+        SELECT p.product_id, p.name
+        FROM Product p
+        WHERE p.price > 30
+        AND p.product_id IN (
+            SELECT product_id
+            FROM BelongsTo
+            WHERE category_id IN (
+                SELECT category_id
+                FROM BelongsTo
+                GROUP BY category_id
+                HAVING COUNT(product_id) > 5
+            )
+        )
+        
+        INTERSECT
+        
+        SELECT p.product_id, p.name
+        FROM Product p
+        WHERE p.price < 100
+        AND p.product_id IN (
+            SELECT product_id
+            FROM BelongsTo
+            WHERE category_id IN (
+                SELECT category_id
+                FROM BelongsTo
+                GROUP BY category_id
+                HAVING COUNT(product_id) > 5
+            )
+        )
     """
     
     products_data = db_manager.fetch_all(query)
@@ -115,17 +137,30 @@ def intersect_products():
 
 @products_page.route('/products/difference', methods=['GET'])
 def difference_products():
+    # correlated
     query = """
-    SELECT p.product_id, p.name
-    FROM Product p
-    WHERE p.price < 50
-    
-    EXCEPT
-    
-    SELECT p.product_id, p.name
-    FROM Product p
-    WHERE p.price < 20
-    """
+            SELECT p.product_id, p.name
+            FROM Product p
+            WHERE p.price < 50
+            AND EXISTS (
+                SELECT 1
+                FROM Category c
+                WHERE c.category_id = p.product_id
+                AND c.name = 'Shoes'
+            )
+            
+            EXCEPT
+            
+            SELECT p.product_id, p.name
+            FROM Product p
+            WHERE p.price < 20
+            AND NOT EXISTS (
+                SELECT 1
+                FROM Feedback f
+                WHERE f.product_ID = p.product_id
+                AND f.rating < 3
+            )
+        """
     
     products_data = db_manager.fetch_all(query)
     serialized_data = Serialization(products_data, "Product", [

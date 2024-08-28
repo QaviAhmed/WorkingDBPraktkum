@@ -152,6 +152,12 @@ db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktk
 db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/triggers_script.sql")
 db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/indices_script.sql")
 db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/creation_script.sql")
+db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/transactions_script.sql")
+db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/view_script.sql")
+db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/procedure_script.sql")
+
+
+
 # Example of creating tables and inserting data
 # db_manager.execute_query("""CREATE TABLE IF NOT EXISTS newsletter 
 #                            (id INT AUTO_INCREMENT,

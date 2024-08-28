@@ -44,3 +44,41 @@ BEGIN
 END //
  
 DELIMITER ;
+
+--  Trigger (gets triggered by transactions) for update order_price
+
+DELIMITER //
+ 
+CREATE TRIGGER update_order_price
+
+AFTER INSERT ON Contains
+
+FOR EACH ROW
+
+BEGIN
+
+    DECLARE total_price DECIMAL(10, 2);
+ 
+    -- Calculate the total price of the order
+
+    SELECT SUM(p.price * c.quantity) INTO total_price
+
+    FROM Contains c
+
+    JOIN Product p ON c.product_id = p.product_id
+
+    WHERE c.order_id = NEW.order_id;
+ 
+    -- Update the order price
+
+    UPDATE `Order`
+
+    SET price = total_price
+
+    WHERE order_id = NEW.order_id;
+
+END //
+
+DELIMITER ;
+
+ 
