@@ -3,7 +3,7 @@ import json
 import sys
 import os
 from db_model import db_manager
-from views.products.products import products_page, product_detail_page, category_page, feedback_page
+from views.products.products import products_page, product_detail_page, category_page, feedback_page, api_product_page,cart_page
 from views.authorization.login import login_page
 from views.authorization.registration import register_page
     
@@ -15,6 +15,8 @@ app.register_blueprint(register_page)
 app.register_blueprint(product_detail_page)
 app.register_blueprint(category_page)
 app.register_blueprint(feedback_page)
+app.register_blueprint(api_product_page)
+app.register_blueprint(cart_page)
 
 # -- sessions setup --
 app.secret_key = 'supersecretkey'

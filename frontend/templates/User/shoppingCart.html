@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - ShoesYou</title>
+    <link rel="stylesheet" href="stylesCart.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/stylesCart.css') }}">
+</head>
+<body>
+
+    <main>
+        <section class="shopping-cart">
+            <h1>Shopping cart</h1>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-summary">
+                <p>Total: <span id="cart-total">0.00€</span></p>
+                <button class="checkout-button">Buy now!</button>
+            </div>
+            <p class="return-policy">Some Articles cannot be returned!</p>
+        </section>
+
+        <section class="suggestions">
+            <h2>You might also like:</h2>
+            <div class="suggestions-grid">
+                <div class="suggestion-item"></div>
+                <div class="suggestion-item"></div>
+                <div class="suggestion-item"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-section">
+            <h3>ShoesYou</h3>
+            <ul>
+                <li>Über uns</li>
+                <li>News Agents</li>
+                <li>Mobile Apps</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Informationen</h3>
+            <ul>
+                <li>Hilfe</li>
+                <li>Tipps für deine Sicherheit</li>
+                <li>Impressum</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Social Media</h3>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>TikTok</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Allgemein</h3>
+            <ul>
+                <li>Datenschutz</li>
+                <li>Anzeigen Übersicht</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/add_to_cart.js') }}"></script>
+</body>
+</html>

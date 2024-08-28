@@ -69,8 +69,8 @@
         <header class="header">
             <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
                 <div style="display: flex; align-items:center;">
-                    <a href="/main/Home.html" class="logo">
-                        <img src="pics/Logo2.png" alt="ShoesYou">
+                    <a href="/" class="logo">
+                        <img src="{{ url_for('static',filename='pics/Logo2.png') }}" alt="ShoesYou">
                     </a>
                 </div>
                 <form class="search-bar" method="GET" action="{{ url_for('product_page.products') }}">
@@ -78,7 +78,9 @@
                     <button type="submit">&#128269;</button>
                 </form>
                 <div style="display:flex;justify-content:end; text-align:end;" >
-                    <a href="/login"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 10%;"></a>
+                    <a href="/wishlist"><img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 15%;"></a>
+                    <a href="/cart"><img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 15%;"></a>
+                    <a href="/login"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 15%;"></a>
                 </div>
             </nav>
         </header>

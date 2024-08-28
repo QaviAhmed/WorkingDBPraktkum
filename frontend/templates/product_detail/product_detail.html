@@ -28,7 +28,7 @@
             <div class="product-image">
                 <img src="{{url_for('static', filename='pics/product_images/' ~ product['image'])}}" alt="Product Image">
             </div>
-            <div class="product-info">
+            <div class="product-info" data-id="{{product['product_id']}}">
                 <h4 id="product-id">{{product['product_id']}}</h4>
                 <h1>{{product['product_name']}}</h1>
                 <p class="product-description">
@@ -144,5 +144,6 @@
 
 <!-- Include your custom JS file -->
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/add_to_cart.js') }}"></script>
 </body>
 </html>

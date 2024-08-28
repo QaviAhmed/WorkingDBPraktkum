@@ -7,6 +7,11 @@
 /dataSources/
 /dataSources.local.xml
 
+# hide node_modules
+/node_modules/
+
 # hide venv and all pycache data
 /venv/
+/env/
+/path/
 /__pycache__/

@@ -17,51 +17,50 @@ def products():
     category_id = request.args.get('category_id')
     search_query = request.args.get('search')
     
+    # Base query with joins
+    query = """
+    SELECT 
+        p.product_id,
+        p.name AS product_name,
+        p.description,
+        p.price,
+        p.image,
+        p.accessory_type,
+        p.accessory_gender,
+        p.accessory_usage,
+        p.shoe_color,
+        p.shoe_size,
+        p.shoe_material,
+        p.shoe_gender,
+        c.category_id,
+        c.name AS category_name
+    FROM 
+        Product p
+    JOIN 
+        BelongsTo b ON p.product_id = b.product_id
+    JOIN 
+        Category c ON b.category_id = c.category_id
+    """
+    
+    # Filtering by category if category_id is provided
     if category_id:
-        # Call the stored procedure for category filtering
-        query = "CALL GetProductsByCategory(%s)"
-        params = (category_id,)
-    elif search_query:
-        # Call the stored procedure for search functionality
-        query = "CALL SearchProductsByName(%s)"
-        params = (search_query,)
-    else:
-        # Default to fetching all products without filtering or searching
-        query = """
-        SELECT 
-            p.product_id,
-            p.name AS product_name,
-            p.description,
-            p.price,
-            p.image,
-            p.accessory_type,
-            p.accessory_gender,
-            p.accessory_usage,
-            p.shoe_color,
-            p.shoe_size,
-            p.shoe_material,
-            p.shoe_gender,
-            c.category_id,
-            c.name AS category_name
-        FROM 
-            Product p
-        JOIN 
-            BelongsTo b ON p.product_id = b.product_id
-        JOIN 
-            Category c ON b.category_id = c.category_id
-        GROUP BY 
-            c.category_id, p.product_id
-        HAVING 
-            p.price > 0
-        ORDER BY 
-            p.price ASC;
-        """
-        params = ()
+        query += f" WHERE c.category_id = {category_id}"
     
-    # Fetch data from the database
-    products_data = db_manager.fetch_all(query, params)
+    # Searching if search_query is provided
+    if search_query:
+        if 'WHERE' in query:
+            query += f" AND p.name LIKE '%{search_query}%'"
+        else:
+            query += f" WHERE p.name LIKE '%{search_query}%'"
     
-    # Serialize the fetched data
+    # Grouping the results by category and filtering by price range using HAVING
+    query += """
+    GROUP BY c.category_id, p.product_id
+    HAVING p.price > 0
+    ORDER BY p.price ASC
+    """
+    # Fetch data from database
+    products_data = db_manager.fetch_all(query)
     serialized_data = Serialization(products_data, "Product", [
         'product_id', 'product_name', 'description', 'price',
         'image', 'accessory_type', 'accessory_gender',
@@ -331,3 +330,17 @@ def handle_feedback():
         else:
             return jsonify({"message": "Product ID not provided"}), 400
 
+api_product_page = Blueprint('api_product_page', __name__)
+@api_product_page.route('/api/product/<int:product_id>', methods=['GET'])
+def get_product(product_id):
+    # Example product data (you should replace this with a real database query)
+    product = db_manager.fetch_one("SELECT name, description, price, image FROM Product WHERE product_id = %s", (product_id))
+    Product = namedtuple("Product", ['name', 'description', 'price', 'image'])
+    product_serialzied = Product(*product)._asdict()
+    print(product_serialzied)
+    return jsonify(product_serialzied)
+
+cart_page = Blueprint('cart_page', __name__, template_folder=f"{template_dir}/User")
+@cart_page.route('/cart', methods=['GET'])
+def get_product():
+    return render_template('shoppingCart.html')
