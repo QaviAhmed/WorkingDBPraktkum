@@ -1,22 +1,3 @@
-DELIMITER //
- 
-CREATE TRIGGER update_order_price
-AFTER INSERT ON Contains
-FOR EACH ROW
-BEGIN
-    DECLARE product_price DECIMAL(10, 2);
-    -- Get the price of the product
-    SELECT price INTO product_price
-    FROM Product
-    WHERE product_id = NEW.product_id;
-    -- Update the order price
-    UPDATE `Order`
-    SET price = price + (product_price * NEW.quantity)
-    WHERE order_id = NEW.order_id;
-END //
- 
-DELIMITER ;
-
 INSERT INTO Address (street, house_number, postal_code, city, country) VALUES
 ('Main St', '123', '10001', 'New York', 'USA'),
 ('Sunset Blvd', '456', '90028', 'Los Angeles', 'USA'),

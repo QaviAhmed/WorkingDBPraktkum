@@ -53,6 +53,12 @@ def products():
         else:
             query += f" WHERE p.name LIKE '%{search_query}%'"
     
+    # Grouping the results by category and filtering by price range using HAVING
+    query += """
+    GROUP BY c.category_id, p.product_id
+    HAVING p.price > 0
+    ORDER BY p.price ASC
+    """
     # Fetch data from database
     products_data = db_manager.fetch_all(query)
     serialized_data = Serialization(products_data, "Product", [
@@ -212,11 +218,11 @@ product_detail_page = Blueprint('product_detail_page', __name__,
 def product_detail(product_id):
     print("this is to check the product id: ", product_id)
     product = db_manager.fetch_one("SELECT * FROM Product WHERE product_id = %s", (product_id))
+    print(product)
     Product = namedtuple('Product', [
         'product_id', 'product_name', 'description', 'price',
         'image', 'accessory_type', 'accessory_gender',
-        'accessory_usage', 'shoe_color', 'shoe_size', 'shoe_material', 'shoe_gender',
-        'category_id', 'category_name'
+        'accessory_usage', 'shoe_color', 'shoe_size', 'shoe_material', 'shoe_gender'
     ])
     product_dict = Product(*product)._asdict()
     print("this for checking the product: ", product_dict)
@@ -224,5 +230,69 @@ def product_detail(product_id):
         flash("Product not found", "error")
         return redirect(url_for('main_page'))
     
+        # Fetch feedback related to the product
+    feedback = db_manager.fetch_all(
+        "SELECT * FROM Feedback WHERE product_ID = %s", (product_id,)
+    )
+    print(feedback)
     # Assuming you have a template for the product detail page
-    return render_template('product_detail.html', product=product_dict)
+    return render_template('product_detail.html', product=product_dict, feedback=feedback)
+
+# -- category page functions --
+
+category_page = Blueprint('category_page', __name__)
+
+@category_page.app_context_processor
+def inject_categories():
+    categories = db_manager.fetch_all("SELECT * FROM Category")
+    print("this is for the categories: ", categories)
+    serialized_data = Serialization(categories, 'Categories', [
+        'category_id', 'category_name'
+    ]).get_data()
+    
+
+    return {'categories': serialized_data}
+
+# -- feedback functions --
+feedback_page = Blueprint('feedback_page', __name__)
+@feedback_page.route('/feedback', methods=['POST', 'GET'])
+def handle_feedback():
+    if request.method == 'POST':
+        # Handle POST request logic
+        feedback_data = request.get_json()
+        
+        # Validate that all required fields are present
+        if not all(key in feedback_data for key in ['user_ID', 'product_ID', 'rating', 'comment']):
+            return jsonify({"error": "Missing data"}), 400
+
+        # Generate feedback_ID (assuming it's AUTO_INCREMENT in the DB)
+        feedback_id = db_manager.fetch_one("SELECT COALESCE(MAX(feedback_ID), 0) FROM Feedback")[0] + 1
+        
+        # Insert the feedback into the database
+        db_manager.execute_query(
+            """INSERT INTO Feedback (feedback_ID, user_ID, product_ID, rating, comment) 
+            VALUES (%s, %s, %s, %s, %s)""",
+            feedback_id, feedback_data['user_ID'], feedback_data['product_ID'],
+            feedback_data['rating'], feedback_data['comment']
+        )
+        
+        return jsonify({"message": "Feedback added successfully", "feedback_id": feedback_id}), 201
+
+    elif request.method == 'GET':
+        product_id = request.args.get('product_id')
+        
+        if product_id:
+            try:
+                product_id = int(product_id)  # Ensure product_id is an integer
+                print(product_id)
+                feedbacks = db_manager.fetch_all(f"""SELECT * FROM Feedback WHERE product_ID = {product_id}""")
+                
+                if feedbacks:
+                    return jsonify(feedbacks)
+                else:
+                    return jsonify({"message": "No feedback found for this product"}), 404
+            except ValueError:
+                return jsonify({"message": "Invalid product ID"}), 400
+        else:
+            return jsonify({"message": "Product ID not provided"}), 400
+

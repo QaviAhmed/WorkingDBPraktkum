@@ -1,6 +1,6 @@
 -- Table: Address
 -- this is BCNF
-CREATE TABLE Address (
+CREATE TABLE IF NOT EXISTS Address (
     address_id INT AUTO_INCREMENT PRIMARY KEY,
     street VARCHAR(255) NOT NULL,
     house_number VARCHAR(20) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE Address (
 );
 
 -- Table: Users
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users (
     user_id INT PRIMARY KEY,
     name VARCHAR(255),
     birthdate DATE,
@@ -22,13 +22,13 @@ CREATE TABLE Users (
 );
 
 -- Table: Shop
-CREATE TABLE Shop (
+CREATE TABLE IF NOT EXISTS Shop (
     shop_id INT PRIMARY KEY,
     name VARCHAR(255)
 );
 
 -- Table: Seller (subclass of User)
-CREATE TABLE Seller (
+CREATE TABLE IF NOT EXISTS Seller (
     user_id INT PRIMARY KEY,
     shop_id INT,
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
@@ -36,7 +36,7 @@ CREATE TABLE Seller (
 );
 
 -- Table: Payment
-CREATE TABLE Payment (
+CREATE TABLE IF NOT EXISTS Payment (
     transaction_id INT PRIMARY KEY,
     pp_email VARCHAR(255)
 );
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS HasChat (
 
 -- Table: Product
 -- 3NF
-CREATE TABLE Product (
+CREATE TABLE IF NOT EXISTS Product (
     product_id INT PRIMARY KEY,
     name VARCHAR(255),
     description TEXT,
@@ -68,7 +68,7 @@ CREATE TABLE Product (
 );
 
 -- Table: Wishlist
-CREATE TABLE Wishlist (
+CREATE TABLE IF NOT EXISTS Wishlist (
     user_id INT,
     product_id INT,
     PRIMARY KEY (user_id, product_id),
@@ -89,7 +89,7 @@ CREATE TABLE `Order` (
 );
 
 -- Table: Contains
-CREATE TABLE Contains (
+CREATE TABLE IF NOT EXISTS Contains (
     order_id INT,
     product_id INT,
     quantity INT,
@@ -99,13 +99,13 @@ CREATE TABLE Contains (
 );
 
 -- Table: Category
-CREATE TABLE Category (
+CREATE TABLE IF NOT EXISTS Category (
     category_id INT PRIMARY KEY,
     name VARCHAR(255)
 );
 
 -- Table: BelongsTo
-CREATE TABLE BelongsTo (
+CREATE TABLE IF NOT EXISTS BelongsTo (
     category_id INT,
     product_id INT,
     PRIMARY KEY (category_id, product_id),
@@ -114,7 +114,7 @@ CREATE TABLE BelongsTo (
 );
 
 -- Table: Feedback
-CREATE TABLE Feedback (
+CREATE TABLE IF NOT EXISTS Feedback (
     feedback_ID INT PRIMARY KEY,
     user_ID INT,
     product_ID INT,
@@ -122,4 +122,19 @@ CREATE TABLE Feedback (
     comment TEXT,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
     FOREIGN KEY (product_ID) REFERENCES Product(product_ID)
+);
+
+-- oder history
+CREATE TABLE IF NOT EXISTS OrderHistory (
+    history_ID INT PRIMARY KEY AUTO_INCREMENT,
+    order_ID INT,
+    user_ID INT,
+    action_type ENUM('CREATE', 'UPDATE', 'DELETE'),
+    action_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    old_status VARCHAR(50),
+    new_status VARCHAR(50),
+    old_price DECIMAL(10, 2),
+    new_price DECIMAL(10, 2),
+    FOREIGN KEY (order_ID) REFERENCES `Order`(order_ID),
+    FOREIGN KEY (user_ID) REFERENCES Users(user_ID)
 );

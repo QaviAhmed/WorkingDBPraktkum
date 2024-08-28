@@ -24,12 +24,11 @@
                     <a href="/frontend/main /index.html" class="logo">
                         <img src="{{ url_for('static',filename='pics/Logo2.png') }}" alt="ShoesYou">
                     </a>
-                    <a href="">Categories</a>
                 </div>
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Search...">
-                    <button type="submit" onclick="searchItems()">&#128269;</button>
-                </div>
+                <form class="search-bar" method="GET" action="{{ url_for('product_page.products') }}">
+                    <input type="text" name="search" placeholder="Search products">
+                    <button type="submit">&#128269;</button>
+                </form>
                 <div style="display:flex;justify-content:end; text-align:end;" >
                     <button class="under-btn">Your Shop</button>
                         <img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 10%;">
@@ -47,10 +46,16 @@
                     </a>
                     <a href="">Categories</a>
                 </div>
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Search...">
-                    <button type="submit" onclick="searchItems()">&#128269;</button>
-                </div>
+                <form class="search-bar" method="GET" action="{{ url_for('product_page.products') }}">
+                    <input type="text" name="search" placeholder="Search products">
+                    <select name="category_id">
+                        <option value="">All Categories</option>
+                        {% for category in categories %}
+                            <option value="{{ category.category_id }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">&#128269;</button>
+                </form>
                 <div style="display:flex;justify-content:end; text-align:end;" >
                     <button class="under-btn">Become a Seller!</button>
                     <img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 10%;">
@@ -59,7 +64,7 @@
                 </div>
             </nav>
         </header>
-        {% endif %}
+    {% endif %}
     {% else %}
         <header class="header">
             <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
@@ -67,19 +72,32 @@
                     <a href="/main/Home.html" class="logo">
                         <img src="pics/Logo2.png" alt="ShoesYou">
                     </a>
-                    <a href="">Categories</a>
                 </div>
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Search...">
-                    <button type="submit" onclick="searchItems()">&#128269;</button>
-                </div>
+                <form class="search-bar" method="GET" action="{{ url_for('product_page.products') }}">
+                    <input type="text" name="search" placeholder="Search products">
+                    <button type="submit">&#128269;</button>
+                </form>
                 <div style="display:flex;justify-content:end; text-align:end;" >
                     <a href="/login"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 10%;"></a>
-                    
                 </div>
             </nav>
         </header>
     {% endif %}
+    <!-- Category Filter Section -->
+    <section class="category-filter">
+        <h2>Filter by Category</h2>
+        <form method="get" action="{{ url_for('product_page.products') }}" class="form-category">
+            <select name="category_id" id="category">
+                <option value="">-- All Categories --</option>
+                {% for category in categories %}
+                    <option value="{{ category.category_id }}" {% if request.args.get('category_id') == category.category_id|string %}selected{% endif %}>
+                        {{ category.category_name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="filter-btn">Filter</button>
+        </form>
+    </section>
 
     <!------Main Section------>
         <section class="main-content">
@@ -104,7 +122,7 @@
             <div class="product-item bg-black text-white" data-product-id="{{ product['product_id'] }}">
                 <img class="product-image" src="{{url_for('static', filename='pics/product_images/' ~ product['image'])}}" alt="">
                 <div class="product-details">
-                    <h3>{{ product['name'] }}</h3>
+                    <h3>{{ product['product_name'] }}</h3>
                     <p>{{ product['price'] }} $</p>
                     <a href="{{ url_for('product_detail_page.product_detail', product_id=product['product_id']) }}">Check</a>
                 </div>

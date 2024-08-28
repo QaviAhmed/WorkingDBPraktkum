@@ -4,7 +4,6 @@ class Serialization:
         self.query_result=query_result
         self.item_name=item_name
         self.item_colmns=item_colmns
-        print("this is serialization test: ", self.__serialization_to_json(self.query_result, self.item_name, self.item_colmns))
     
     # serilzed the item in form of dict {"item_title": title, etc...}
     def __serialization_to_json(self, query_result, item_name: str, item_columns: list[str]):

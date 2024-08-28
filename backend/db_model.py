@@ -75,7 +75,7 @@ class DBManager:
             connection_obj = self.connection_pool.get_connection()
             try:
                 cursor = connection_obj.cursor()
-                cursor.execute(operation, args)
+                cursor.execute(operation, *args)
                 connection_obj.commit()
             except mariadb.Error as err:
                 print(err)
@@ -95,7 +95,7 @@ class DBManager:
                 try:
                     cursor = connection_obj.cursor()
                     cursor.execute(operation, args)
-                    result = func(cursor, *args)
+                    result = func(cursor)
                     return result
                 except mariadb.Error as err:
                     print(err)
@@ -149,6 +149,8 @@ db_manager = DBManager(
     port="3307"
 )
 db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/table_script.sql")
+db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/triggers_script.sql")
+db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/indices_script.sql")
 db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/creation_script.sql")
 # Example of creating tables and inserting data
 # db_manager.execute_query("""CREATE TABLE IF NOT EXISTS newsletter 

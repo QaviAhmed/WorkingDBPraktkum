@@ -13,11 +13,6 @@
                 <a href="/frontend/main /homepageUser.html" class="logo">
                     <img src="/frontend/main /pics/Logo2.png" alt="ShoesYou">
                 </a>
-                <a href="">Categories</a>
-            </div>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search...">
-                <button type="submit" onclick="searchItems()">&#128269;</button>
             </div>
             <div style="display:flex; justify-content:end">
                 <img src="/frontend/main /pics/wishlist.PNG" alt="User Icon" style="width: 10%;">
@@ -31,21 +26,21 @@
     <section class="product-container">
         <div class="product-details">
             <div class="product-image">
-                <img src="/frontend/main /pics/shoe.jpg" alt="Product Image">
+                <img src="{{url_for('static', filename='pics/product_images/' ~ product['image'])}}" alt="Product Image">
             </div>
             <div class="product-info">
-                <h1>{{product[1]}}</h1>
+                <h4 id="product-id">{{product['product_id']}}</h4>
+                <h1>{{product['product_name']}}</h1>
                 <p class="product-description">
-                    Product Description<br>
-                    {{product[2]}}
+                    Product Description
+                    <br>
+                    <hr>
+                    {{product['description']}}
                 </p>
                 <p>Shop Owner &#9733;&#9733;&#9733;&#9733;&#9734;</p>
                 <div class="product-options">
                     <label for="size">Size</label>
-                    <select id="size">
-                        <option>Select an option</option>
-                        <option value="M">M</option>
-                    </select>
+                    <input type="text" name="size">
 
                     <label for="color">Color</label>
                     <select id="color">
@@ -59,19 +54,30 @@
                         <!-- Add more options here -->
                     </select>
                 </div>
-                <button class="add-to-cart">Add to cart</button>
+                <button class="add-to-cart" id="add-to-cart">Add to cart</button>
             </div>
         </div>
-
-        <div class="feedback-section">
-            <h2>Feedback &#9733;&#9733;&#9733;&#9733;&#9734;</h2>
-            <div class="comments">
-                <div class="comment">Top Comment 1</div>
-                <div class="comment">Top Comment 2</div>
-                <div class="comment">Top Comment 3</div>
-                <div class="comment">Top Comment 4</div>
-            </div>
+    </section>
+    <!-- Feedback Section -->
+    <section id="feedback-section">
+        <h2>Customer Feedback</h2>
+        <div id="feedback-container">
+            <!-- Feedback will be dynamically loaded here -->
+             {{feedback}}
         </div>
+        
+        <form id="feedback-form">
+            <input type="hidden" id="user-id" value="123"> <!-- Replace with actual user ID -->
+            <textarea id="comment" placeholder="Write your feedback..."></textarea>
+            <select id="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button type="submit">Submit Feedback</button>
+        </form>        
     </section>
 
     <section class="listings">
@@ -130,5 +136,13 @@
             </ul>
         </div>
     </footer>
+
+        <!-- Include the product ID for use in JS -->
+        <script id="product-id" type="application/json">{{ product.product_id | tojson | safe }}</script>
+<!-- Include jQuery from a CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include your custom JS file -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

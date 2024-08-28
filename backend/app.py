@@ -1,9 +1,9 @@
-from flask import Flask, render_template, session, redirect, url_for, jsonify
+from flask import Flask, render_template, session, redirect, url_for, jsonify, request
 import json
 import sys
 import os
 from db_model import db_manager
-from views.products.products import products_page, product_detail_page
+from views.products.products import products_page, product_detail_page, category_page, feedback_page
 from views.authorization.login import login_page
 from views.authorization.registration import register_page
     
@@ -13,6 +13,8 @@ app.register_blueprint(products_page)
 app.register_blueprint(login_page)
 app.register_blueprint(register_page)
 app.register_blueprint(product_detail_page)
+app.register_blueprint(category_page)
+app.register_blueprint(feedback_page)
 
 # -- sessions setup --
 app.secret_key = 'supersecretkey'
@@ -35,7 +37,3 @@ def main_page():
 
 if __name__ == "__main__":
     app.run(debug=True, host='127.0.0.1', port=5000)
-
-
-
-
