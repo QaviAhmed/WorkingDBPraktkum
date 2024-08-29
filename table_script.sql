@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS Users (
     birthdate DATE,
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
+    profile_image BLOB,
     address_id INT,
     role ENUM('normal_user', 'seller') NOT NULL DEFAULT 'normal_user',
     FOREIGN KEY (address_id) REFERENCES Address(address_id)
@@ -57,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Product (
     name VARCHAR(255),
     description TEXT,
     price DECIMAL(10, 2),
-    image LONGBLOB,
+    image TEXT,
     accessory_type VARCHAR(100),
     accessory_gender VARCHAR(50),
     accessory_usage VARCHAR(100),
@@ -77,8 +78,8 @@ CREATE TABLE IF NOT EXISTS Wishlist (
 );
 
 -- Table: `Order`
-CREATE TABLE `Order` (
-    order_id INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS `Order` (
+    order_id BIGINT PRIMARY KEY,
     status VARCHAR(50),
     date DATE,
     price DECIMAL(10, 2),
@@ -90,7 +91,7 @@ CREATE TABLE `Order` (
 
 -- Table: Contains
 CREATE TABLE IF NOT EXISTS Contains (
-    order_id INT,
+    order_id BIGINT,
     product_id INT,
     quantity INT,
     PRIMARY KEY (order_id, product_id),
@@ -115,26 +116,26 @@ CREATE TABLE IF NOT EXISTS BelongsTo (
 
 -- Table: Feedback
 CREATE TABLE IF NOT EXISTS Feedback (
-    feedback_ID INT PRIMARY KEY,
-    user_ID INT,
-    product_ID INT,
+    feedback_id INT PRIMARY KEY,
+    user_id INT,
+    product_id INT,
     rating INT CHECK (rating >= 1 AND rating <= 5),
     comment TEXT,
-    FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
-    FOREIGN KEY (product_ID) REFERENCES Product(product_ID)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
 -- oder history
 CREATE TABLE IF NOT EXISTS OrderHistory (
-    history_ID INT PRIMARY KEY AUTO_INCREMENT,
-    order_ID INT,
-    user_ID INT,
+    history_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id BIGINT,
+    user_id INT,
     action_type ENUM('CREATE', 'UPDATE', 'DELETE'),
     action_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     old_status VARCHAR(50),
     new_status VARCHAR(50),
     old_price DECIMAL(10, 2),
     new_price DECIMAL(10, 2),
-    FOREIGN KEY (order_ID) REFERENCES `Order`(order_ID),
-    FOREIGN KEY (user_ID) REFERENCES Users(user_ID)
+    FOREIGN KEY (order_id) REFERENCES `Order`(order_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );

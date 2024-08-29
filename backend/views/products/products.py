@@ -294,9 +294,9 @@ def handle_feedback():
     if request.method == 'POST':
         # Handle POST request logic
         feedback_data = request.get_json()
-        
+        print(feedback_data)
         # Validate that all required fields are present
-        if not all(key in feedback_data for key in ['user_ID', 'product_ID', 'rating', 'comment']):
+        if not all(key in feedback_data for key in ['user_id', 'product_id', 'rating', 'comment']):
             return jsonify({"error": "Missing data"}), 400
 
         # Generate feedback_ID (assuming it's AUTO_INCREMENT in the DB)
@@ -304,9 +304,9 @@ def handle_feedback():
         
         # Insert the feedback into the database
         db_manager.execute_query(
-            """INSERT INTO Feedback (feedback_ID, user_ID, product_ID, rating, comment) 
+            """INSERT INTO Feedback (feedback_id, user_id, product_id, rating, comment) 
             VALUES (%s, %s, %s, %s, %s)""",
-            feedback_id, feedback_data['user_ID'], feedback_data['product_ID'],
+            feedback_id, feedback_data['user_id'], feedback_data['product_id'],
             feedback_data['rating'], feedback_data['comment']
         )
         
@@ -319,7 +319,7 @@ def handle_feedback():
             try:
                 product_id = int(product_id)  # Ensure product_id is an integer
                 print(product_id)
-                feedbacks = db_manager.fetch_all(f"""SELECT * FROM Feedback WHERE product_ID = {product_id}""")
+                feedbacks = db_manager.fetch_all(f"""SELECT * FROM Feedback WHERE product_id = {product_id}""")
                 
                 if feedbacks:
                     return jsonify(feedbacks)
@@ -329,7 +329,7 @@ def handle_feedback():
                 return jsonify({"message": "Invalid product ID"}), 400
         else:
             return jsonify({"message": "Product ID not provided"}), 400
-
+# -- api product page --
 api_product_page = Blueprint('api_product_page', __name__)
 @api_product_page.route('/api/product/<int:product_id>', methods=['GET'])
 def get_product(product_id):
@@ -340,6 +340,8 @@ def get_product(product_id):
     print(product_serialzied)
     return jsonify(product_serialzied)
 
+
+# -- api cart page --
 cart_page = Blueprint('cart_page', __name__, template_folder=f"{template_dir}/User")
 @cart_page.route('/cart', methods=['GET'])
 def get_product():

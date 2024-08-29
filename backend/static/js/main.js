@@ -1,6 +1,6 @@
 $(document).ready(function() {
     const productId = JSON.parse($('#product-id').text());
-
+    
     // Function to render feedback
     function renderFeedback(feedback) {
         const feedbackContainer = $('#feedback-container');
@@ -34,8 +34,8 @@ $(document).ready(function() {
         event.preventDefault();
 
         const feedbackData = {
-            product_ID: productId,
-            user_ID: $('#user-id').val(),  // assuming you have a way to get the user's ID
+            product_id: productId,
+            user_id: $('#user-id').val(),  // assuming you have a way to get the user's ID
             rating: $('#rating').val(),
             comment: $('#comment').val()
         };
@@ -55,3 +55,25 @@ $(document).ready(function() {
         });
     });
 });
+$(document).ready(function(){
+    const user_exists = localStorage.getItem("user_id");
+    $("#log_out").click(function(){
+        localStorage.clear()
+        location.reload()
+    })
+    if(user_exists){
+        const logged_in = document.getElementById('logged_in');
+        const log_out = document.getElementById('log_out');
+        logged_in.style.display= 'none';
+        log_out.style.display = 'block';
+
+        document.getElementById("cart_items_total").innerHTML = JSON.parse(localStorage.getItem('cart')).length
+    }
+    if (!user_exists){
+        const logged_in = document.getElementById('logged_in');
+        const log_out = document.getElementById('log_out');
+        logged_in.style.display= 'block';
+        log_out.style.display = 'none';
+        localStorage.clear()
+    }
+}) 

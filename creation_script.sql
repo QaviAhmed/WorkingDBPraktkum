@@ -13,24 +13,16 @@ INSERT INTO Users (user_id, name, birthdate, email, password, role, address_id) 
 (4, 'Jacques Cousteau', '1980-06-11', 'jacques@example.com', 'hashed_password4', 'seller', 4),
 (5, 'Hans Müller', '1988-03-22', 'hans@example.com', 'hashed_password5', 'normal_user', 5);
 
-INSERT INTO Shop (shop_id, name) VALUES
-(1, 'Janes Boutique'),
-(2, 'Parisian Elegance');
-
-INSERT INTO Seller (user_id, shop_id) VALUES
-(2, 1),
-(4, 2);
-
 INSERT INTO Payment (transaction_id, pp_email) VALUES
 (1, 'john.paypal@example.com'),
 (2, 'sherlock.paypal@example.com'),
 (3, 'hans.paypal@example.com');
 
 INSERT INTO Product (product_id, name, description, price, image, accessory_type, accessory_gender, accessory_usage, shoe_color, shoe_size, shoe_material, shoe_gender) VALUES
-(1, 'Running Shoes', 'Comfortable running shoes', 59.99, NULL, NULL, NULL, NULL, 'Red', '10', 'Mesh', 'Unisex'),
-(2, 'Leather Belt', 'Genuine leather belt', 24.99, NULL, 'Belt', 'Male', 'Formal', NULL, NULL, NULL, NULL),
-(3, 'Sunglasses', 'Stylish sunglasses', 19.99, NULL, 'Sunglasses', 'Unisex', 'Casual', NULL, NULL, NULL, NULL),
-(4, 'High Heels', 'Elegant high heels', 89.99, NULL, NULL, NULL, NULL, 'Black', '8', 'Leather', 'Female');
+(1, 'Running Shoes', 'Comfortable running shoes', 59.99, 'domino-studio-164_6wVEHfI-unsplash.jpg', NULL, NULL, NULL, 'Red', '10', 'Mesh', 'Unisex'),
+(2, 'Leather Belt', 'Genuine leather belt', 24.99, 'luis-felipe-lins-J2-wAQDckus-unsplash.jpg', 'Belt', 'Male', 'Formal', NULL, NULL, NULL, NULL),
+(3, 'Sunglasses', 'Stylish sunglasses', 19.99, 'mojtaba-fahiminia-t4g1gctAaKk-unsplash.jpg', 'Sunglasses', 'Unisex', 'Casual', NULL, NULL, NULL, NULL),
+(4, 'High Heels', 'Elegant high heels', 89.99, 'paul-gaudriault-a-QH9MAAVNI-unsplash.jpg', NULL, NULL, NULL, 'Black', '8', 'Leather', 'Female');
 
 INSERT INTO Wishlist (user_id, product_id) VALUES
 (1, 1),

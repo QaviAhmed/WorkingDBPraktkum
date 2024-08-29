@@ -33,7 +33,7 @@ BEGIN
         p.price > 0
     ORDER BY 
         p.price ASC;
-END $$
+END $$a
 
 CREATE PROCEDURE SearchProductsByName(
     IN p_search_query VARCHAR(255)

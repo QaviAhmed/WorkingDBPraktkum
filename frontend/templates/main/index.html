@@ -14,58 +14,6 @@
 
 </head>
 <body>
-</head>
-<body>
-    {% if user %}
-        {% if user['role'] == 'Seller' %}
-        <header class="header">
-            <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
-                <div style="display: flex; align-items:center;">
-                    <a href="/frontend/main /index.html" class="logo">
-                        <img src="{{ url_for('static',filename='pics/Logo2.png') }}" alt="ShoesYou">
-                    </a>
-                </div>
-                <form class="search-bar" method="GET" action="{{ url_for('product_page.products') }}">
-                    <input type="text" name="search" placeholder="Search products">
-                    <button type="submit">&#128269;</button>
-                </form>
-                <div style="display:flex;justify-content:end; text-align:end;" >
-                    <button class="under-btn">Your Shop</button>
-                        <img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 10%;">
-                        <img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 10%;">
-                        <img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 10%;">
-                    </div>
-            </nav>
-        </header>
-        {% else %}
-        <header class="header">
-            <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
-                <div style="display: flex; align-items:center;">
-                    <a href="/frontend/main /index.html" class="logo">
-                        <img src="{{ url_for('static',filename='pics/Logo2.png') }}" alt="ShoesYou">
-                    </a>
-                    <a href="">Categories</a>
-                </div>
-                <form class="search-bar" method="GET" action="{{ url_for('product_page.products') }}">
-                    <input type="text" name="search" placeholder="Search products">
-                    <select name="category_id">
-                        <option value="">All Categories</option>
-                        {% for category in categories %}
-                            <option value="{{ category.category_id }}">{{ category.category_name }}</option>
-                        {% endfor %}
-                    </select>
-                    <button type="submit">&#128269;</button>
-                </form>
-                <div style="display:flex;justify-content:end; text-align:end;" >
-                    <button class="under-btn">Become a Seller!</button>
-                    <img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 10%;">
-                    <img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 10%;">
-                    <img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 10%;">
-                </div>
-            </nav>
-        </header>
-    {% endif %}
-    {% else %}
         <header class="header">
             <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
                 <div style="display: flex; align-items:center;">
@@ -78,13 +26,13 @@
                     <button type="submit">&#128269;</button>
                 </form>
                 <div style="display:flex;justify-content:end; text-align:end;" >
-                    <a href="/wishlist"><img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 15%;"></a>
-                    <a href="/cart"><img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 15%;"></a>
-                    <a href="/login"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 15%;"></a>
+                    <a href="/wishlist" class="nav_icon"><img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 95%;"></a>
+                    <a href="/cart" class="nav_icon"><img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 100%;" /><div id="cart_items_total"></div></a>
+                    <a href="/login" class="nav_icon" id="logged_in"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 90%;"></a>
+                    <button style="display: none; padding: 5px;" id="log_out">log out</button>
                 </div>
             </nav>
         </header>
-    {% endif %}
     <!-- Category Filter Section -->
     <section class="category-filter">
         <h2>Filter by Category</h2>
@@ -122,7 +70,7 @@
             <!-- Product Item -->
             {% for product in products_data %}
             <div class="product-item bg-black text-white" data-product-id="{{ product['product_id'] }}">
-                <img class="product-image" src="{{url_for('static', filename='pics/product_images/' ~ product['image'])}}" alt="">
+                <img class="product-image" src="{{url_for('static', filename='pics/product_images/' + product['image'])}}" alt="">
                 <div class="product-details">
                     <h3>{{ product['product_name'] }}</h3>
                     <p>{{ product['price'] }} $</p>
@@ -242,6 +190,7 @@
     </div>
 </footer>
 <!-----javascript for toggle menu------>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ url_for('static', filename='js/main.js')}}"></script>
 </body>
 </html>

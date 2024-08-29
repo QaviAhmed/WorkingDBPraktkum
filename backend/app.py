@@ -3,9 +3,13 @@ import json
 import sys
 import os
 from db_model import db_manager
-from views.products.products import products_page, product_detail_page, category_page, feedback_page, api_product_page,cart_page
+from views.products.products import products_page, product_detail_page, category_page,\
+      feedback_page, api_product_page,cart_page
+from views.order.order import order_page, oder_success_page
 from views.authorization.login import login_page
 from views.authorization.registration import register_page
+
+db_manager.initialize_db()
     
 template_dir = os.path.abspath("/Users/qavi/Desktop/OurProject/WorkingDBPraktkum/frontend/templates")
 app = Flask(__name__, template_folder=template_dir)
@@ -17,6 +21,8 @@ app.register_blueprint(category_page)
 app.register_blueprint(feedback_page)
 app.register_blueprint(api_product_page)
 app.register_blueprint(cart_page)
+app.register_blueprint(order_page)
+app.register_blueprint(oder_success_page)
 
 # -- sessions setup --
 app.secret_key = 'supersecretkey'

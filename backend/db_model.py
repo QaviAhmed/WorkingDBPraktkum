@@ -34,7 +34,7 @@ class DBManager:
             database=dbName,
             ssl=False
         )
-        
+    
     def __create_db_if_not_exists(self, dbName):
         connection_obj = self.connection_pool.get_connection()
         try:
@@ -123,19 +123,64 @@ class DBManager:
         columns = [col[0] for col in cursor.description]
         return cursor.fetchmany(n)
     
+
     def run_sql_script(self, sql_file_path):
+
+
         with open(sql_file_path, 'r') as file:
-            sql_script = file.read()
+            sql_statements = file.read().split(';')
 
-            # Split the script into individual SQL statements
-            sql_commands = sql_script.split(';')
-
-            for command in sql_commands:
+        for command in sql_statements:
                 command = command.strip()
                 if command:  # Avoid empty commands
                     self.execute_query(command)
                     print(f"Executed command: {command}")
         print("All commands executed successfully.")
+
+
+
+    def run_sql_script_trigger(self, sql_file_path):
+        with open(sql_file_path, 'r') as file:
+            sql_script = file.read()
+
+        sql_commands = []
+        delimiter = ';'
+        current_command = []
+
+        for line in sql_script.splitlines():
+            stripped_line = line.strip()
+
+            if stripped_line.upper().startswith('DELIMITER'):
+                if current_command:
+                    sql_commands.append('\n'.join(current_command))
+                    current_command = []
+                delimiter = stripped_line.split()[1]
+            elif stripped_line.endswith(delimiter):
+                current_command.append(line.rstrip(delimiter))
+                sql_commands.append('\n'.join(current_command))
+                current_command = []
+            else:
+                current_command.append(line)
+
+        if current_command:
+            sql_commands.append('\n'.join(current_command))
+
+        for command in sql_commands:
+            self.execute_query(command.strip())
+            print(f"Executed command: {command[:50]}...")
+
+
+        print("All commands executed successfully.")
+
+    def initialize_db(self):
+        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/table_script.sql")
+        self.run_sql_script_trigger("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/triggers_script.sql")
+        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/indices_script.sql")
+        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/creation_script.sql")
+        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/view_script.sql")
+
+
+        
 
 # creating the connections
 db_manager = DBManager(
@@ -148,15 +193,6 @@ db_manager = DBManager(
     dbName="db_shoeyou",
     port="3307"
 )
-db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/table_script.sql")
-db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/triggers_script.sql")
-db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/indices_script.sql")
-db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/creation_script.sql")
-db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/transactions_script.sql")
-db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/view_script.sql")
-db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/procedure_script.sql")
-
-
 
 # Example of creating tables and inserting data
 # db_manager.execute_query("""CREATE TABLE IF NOT EXISTS newsletter 
@@ -174,3 +210,4 @@ db_manager.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktk
 #          INSERT INTO newsletter (email)
 #                    VALUES (?)
 #          """, email_data['email'])
+

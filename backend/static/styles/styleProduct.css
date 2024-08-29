@@ -250,3 +250,23 @@ footer {
     justify-content: space-between;
     margin-top: 5%;
 }
+.nav_icon{
+    width: 8%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+#cart_items_total{
+    position: absolute;
+    bottom: -10px;
+    left: 30px;
+    background-color: #333;
+    width: 20px;
+    text-align: center;
+    padding: 4px;
+    border-radius: 10%;
+    color: white;
+}

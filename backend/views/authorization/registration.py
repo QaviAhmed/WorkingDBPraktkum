@@ -57,6 +57,6 @@ def registration():
                 INSERT INTO Users (user_id, name, birthdate, email, password, address_id, role) 
                 VALUES ('{user_id}', '{name}', '{birthdate}', '{email}', '{password}', '{6}', '{role}')
             """)
-    
+            return redirect('/')
     return render_template('register.html')
 

@@ -1,7 +1,7 @@
-CREATE VIEW OrderHistoryView AS
+CREATE VIEW OrderHistoryView AS 
 SELECT 
-    oh.history_ID,
-    oh.order_ID,
+    oh.history_id,
+    oh.order_id,
     u.name AS user_name,
     oh.action_type,
     oh.action_date,
@@ -12,11 +12,11 @@ SELECT
 FROM 
     OrderHistory oh
 JOIN 
-    Users u ON oh.user_ID = u.user_ID
+    Users u ON oh.user_ID = u.user_id
 ORDER BY 
     oh.action_date DESC;
 
--- displays user_id's with their related wishlist data
+
 CREATE VIEW UserWishlist AS
 SELECT 
     w.user_id,
@@ -30,7 +30,7 @@ JOIN Users u ON w.user_id = u.user_id
 JOIN Product p ON w.product_id = p.product_id;
  
  
--- displays product's with related feedback data
+
 CREATE VIEW ProductFeedbackDetails AS
 SELECT 
     p.product_id,
@@ -41,7 +41,7 @@ SELECT
     COUNT(DISTINCT f.feedback_ID) AS review_count
 FROM 
     Product p
-LEFT JOIN Feedback f ON p.product_id = f.product_ID
+LEFT JOIN Feedback f ON p.product_id = f.product_id
 GROUP BY 
     p.product_id,
     p.name,

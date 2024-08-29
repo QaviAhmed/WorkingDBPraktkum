@@ -1,77 +1,70 @@
-from flask import Flask, request, jsonify, render_template
-import json
-import os
+from flask import Flask, request, jsonify, Blueprint, render_template
+from datetime import datetime
+import mariadb
+from db_model import db_manager
+app = Flask(__name__)
 
-template_dir = os.path.abspath("C:/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/frontend/templates")
-app = Flask(__name__, template_folder=template_dir, static_folder=os.path.join(template_dir, 'static'))
+# Assuming db_manager has already been created as shown in your initial code
+order_page = Blueprint('order_page', __name__)
 
-JSON_FILE_PATH = '/Users/leona/OneDrive/Desktop/DBP/WorkingDBPraktkum/backend/views/order.json'  # Update this path
+@order_page.route('/create_order', methods=['POST'])
+def create_order():
+    try:
+        order_data = request.get_json()
+        user_id = order_data.get('user_id')
+        order_id = order_data.get('order_id')
+        products = order_data.get('products', [])
+        print("this are all the products: ", products, "and this the order id: ", order_id)
 
-def load_data():
-    with open(JSON_FILE_PATH, 'r') as file:
-        return json.load(file)
+        if not user_id or not products:
+            return jsonify({'error': 'Invalid input data'}), 400
 
-def save_data(data):
-    with open(JSON_FILE_PATH, 'w') as file:
-        json.dump(data, file, indent=4)
+        for product in products:
+            print("this is the product: ", product )
+            return  create_order_func(user_id, products, order_id)
 
-# Get all orders or search by user_ID
-@app.route('/order', methods=['GET'])
-def get_orders():
-    data = load_data()
-    user_id = request.args.get('user_id')
     
-    if user_id:
-        filtered_orders = [order for order in data['order_data'] if order['user_ID'] == int(user_id)]
-        return jsonify(filtered_orders)
-    else:
-        return jsonify(data['order_data'])
+    except Exception as e:
+        print(f"Error in create_order: {e}")
+        return jsonify({'error': 'An error occurred while processing the order'}), 500
 
-# Add new order
-@app.route('/order', methods=['POST'])
-def add_order():
-    data = load_data()
-    new_order = request.get_json()
+def create_order_func(user_id, products, order_id):
+    connection_obj = db_manager.connection_pool.get_connection()
+    cursor = connection_obj.cursor()
+    cursor.execute("START TRANSACTION;")
     
-    # Generate order_ID
-    max_id = max([order['order_ID'] for order in data['order_data']], default=0)
-    new_order['order_ID'] = max_id + 1
-    
-    data['order_data'].append(new_order)
-    save_data(data)
-    return jsonify({"message": "Order added successfully", "order": new_order}), 201
+    try:
+        # Begin transaction
+        cursor.execute("START TRANSACTION;")
+        print("this is the order id: ", order_id)
 
-# Update order
-@app.route('/order/<int:order_id>', methods=['PATCH'])
-def update_order(order_id):
-    data = load_data()
-    update_data = request.get_json()
-    
-    for order in data['order_data']:
-        if order['order_ID'] == order_id:
-            order.update(update_data)
-            save_data(data)
-            return jsonify({"message": "Order updated successfully", "order": order})
-    
-    return jsonify({"error": "Order not found"}), 404
+        cursor.execute("""
+            INSERT INTO `Order` (order_id, status, date, price, user_id, transaction_id)
+            VALUES (?, 'Pending', CURDATE(), 0, ?, NULL);
+        """, (order_id,user_id,))
+        # Insert into Order table
+        for product in products:
+            # Insert into Contains table
+            cursor.execute("""
+                INSERT INTO Contains (order_id, product_id, quantity)
+                VALUES (?, ?, ?);
+            """, (order_id, product['product_id'], product['quantity']))
 
-# Delete order
-@app.route('/order/<int:order_id>', methods=['DELETE'])
-def delete_order(order_id):
-    data = load_data()
-    initial_length = len(data['order_data'])
-    data['order_data'] = [order for order in data['order_data'] if order['order_ID'] != order_id]
-    
-    if len(data['order_data']) < initial_length:
-        save_data(data)
-        return jsonify({"message": "Order deleted successfully"}), 200
-    else:
-        return jsonify({"error": "Order not found"}), 404
+            # Commit transaction
+            connection_obj.commit()
 
-# Serve the order UI
-@app.route('/order/ui', methods=['GET'])
-def order_ui():
-    return render_template('order.html')
+        return jsonify({'message': 'Order created successfully', 'order_id': order_id}), 201
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    except mariadb.Error as e:
+        connection_obj.rollback()
+        print(f"Error in create_order_func: {e}")
+        return jsonify({'error': 'Failed to create order'}), 500
+
+    finally:
+        cursor.close()
+        connection_obj.close()
+
+oder_success_page = Blueprint('order_success_page', __name__, template_folder='/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/frontend/templates/order')
+@oder_success_page.route('/order-success', methods=['GET'])
+def order_success():
+    return render_template('orderSuccessful.html')

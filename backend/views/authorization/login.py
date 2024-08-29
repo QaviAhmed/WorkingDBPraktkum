@@ -15,21 +15,15 @@ def login():
         # Process the login form submission
         email = request.form.get('email')
         password = request.form.get('password')
+        print("email: ", email, "password: ", password)
         #password = request.form.get('password')
  
         # Check if the user exists and the password matches
         for user in users:
-            if email in user and password in user:
-                session['user_id'] = user[0]
-                session['user_name'] = user[1]
-                session['user_email'] = email
-                session.modified = True
-                return redirect(url_for('main_page'))
+            if email == user[3] and password == user[4]:
+                return jsonify({"user_id": user[0], "user_name": user[1], "user_email": email})
         
-            else:
-                return jsonify({
-                "message": "Invalid email or password"
-            }), 401
-    else:
-        # Render the login form
-        return render_template('login.html')
+        error_message = "Invalid email or password"
+        return jsonify({"error": error_message})
+    # Render the login form for GET requests
+    return render_template('login.html')
