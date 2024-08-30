@@ -90,7 +90,7 @@ def track_order(order_id):
         serialized_ordered_product = Serialization(product, "Order_Product", [
         'product_id', 'product_name', 'description', 'price',
         'image', 'accessory_type', 'accessory_gender',
-        'accessory_usage', 'shoe_color', 'shoe_size', 'shoe_material', 'shoe_gender'
+        'accessory_usage', 'shoe_color', 'shoe_size', 'shoe_material', 'shoe_gender', 'user_id'
         ]).get_data()
         product_list.append({"product": serialized_ordered_product, "quanity": order['quantity'],'order_id': order_id})
     return render_template('orderTrack.html', orders=product_list)

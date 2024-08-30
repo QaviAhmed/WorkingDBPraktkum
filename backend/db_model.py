@@ -173,11 +173,11 @@ class DBManager:
         print("All commands executed successfully.")
 
     def initialize_db(self):
-        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/table_script.sql")
-        self.run_sql_script_trigger("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/triggers_script.sql")
-        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/indices_script.sql")
-        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/creation_script.sql")
-        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/view_script.sql")
+        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/sql_script/table_script.sql")
+        self.run_sql_script_trigger("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/sql_script/triggers_script.sql")
+        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/sql_script/indices_script.sql")
+        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/sql_script/creation_script.sql")
+        self.run_sql_script("/Users/qavi/Desktop/SS24/DB_Praktikum/WorkingDBPraktkum/sql_script/view_script.sql")
 
 
         

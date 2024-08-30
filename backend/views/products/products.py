@@ -129,7 +129,7 @@ def intersect_products():
     'product_id', 'product_name', 'description', 'price',
     'image', 'accessory_type', 'accessory_gender',
     'accessory_usage', 'shoe_color', 'shoe_size', 'shoe_material', 'shoe_gender',
-    'category_id', 'category_name'
+    'category_id', 'category_name', 'user_id'
     ]).get_data()
     
     return render_template('index.html', products_data=serialized_data)
@@ -211,7 +211,7 @@ def delete_product():
     existing_product = db_manager.fetch_one("SELECT * FROM Product WHERE product_id = %s", (product_id,))
     if not existing_product:
         flash("Product does not exist", "error")
-        return redirect(url_for('main_page'))
+        return redirect(url_for('/'))
     
     # Delete the product
     try:
@@ -220,7 +220,7 @@ def delete_product():
     except Exception as e:
         flash(f"Error deleting product: {str(e)}", "error")
     
-    return redirect(url_for('main_page'))
+    return redirect(url_for('/'))
 
 def save_image(image_file):
     # Logic to save the image to your server or cloud storage
@@ -240,7 +240,7 @@ def update_product():
     existing_product = db_manager.fetch_one("SELECT * FROM Product WHERE product_id = %s", (product_id,))
     if not existing_product:
         flash("Product does not exist", "error")
-        return redirect(url_for('main_page'))
+        return redirect(url_for('/'))
     
     # Update the product
     try:
@@ -253,7 +253,7 @@ def update_product():
     except Exception as e:
         flash(f"Error updating product: {str(e)}", "error")
     
-    return redirect(url_for('main_page'))
+    return redirect(url_for('/'))
 
 # -- detail page for products --
 
@@ -269,7 +269,7 @@ def product_detail(product_id):
     Product = namedtuple('Product', [
         'product_id', 'product_name', 'description', 'price',
         'image', 'accessory_type', 'accessory_gender',
-        'accessory_usage', 'shoe_color', 'shoe_size', 'shoe_material', 'shoe_gender'
+        'accessory_usage', 'shoe_color', 'shoe_size', 'shoe_material', 'shoe_gender', 'user_id'
     ])
     product_dict = Product(*product)._asdict()
     print("this for checking the product: ", product_dict)

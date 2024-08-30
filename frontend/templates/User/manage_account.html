@@ -9,13 +9,14 @@
 </head>
 <body>
     <header class="header">
-        <nav style="display: grid; grid-template-columns:repeat(2, 1fr); justify-content:space-between;">
+        <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
             <div style="display: flex; align-items:center;">
                 <a href="/" class="logo">
                     <img src="{{ url_for('static',filename='pics/Logo2.png') }}" alt="ShoesYou">
                 </a>
             </div>
             <div style="display:flex;justify-content:end; text-align:end;" >
+                <button id="user-profile" style="display: none;">Profile</button>
                 <a href="/wishlist" class="nav_icon"><img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 95%;"></a>
                 <a href="/cart" class="nav_icon"><img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 100%;" /><div id="cart_items_total"></div></a>
                 <a href="/login" class="nav_icon" id="logged_in"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 90%;"></a>
@@ -79,7 +80,6 @@
                 <button class="Your-order-button ">Your chats</button>
             </div>
             <br>
-            {{user['role']}}
             {% if user['role'] == 'normal_user' %}
                 <div class="seller-info">
                     <h3>Want to become a seller? Instructions to becoming a seller:</h3>
@@ -123,23 +123,25 @@
                         <!-- More items as needed -->
                     </div>
                 </section>
-                <form action="{{ url_for('product_page.create_product') }}" method="POST" enctype="multipart/form-data">
+                <form id="updateProductForm" enctype="multipart/form-data">
                     <input type="hidden" name="user_id" value="{{ user['user_id'] }}"> <!-- Hidden field to send user_id -->
-                    
+                    <input type="hidden" id="product_id" name="product_id" value="{{ product_id }}"> <!-- Hidden field to send product_id -->
+                
                     <label for="name">Product Name:</label>
                     <input type="text" id="name" name="name" required>
-                    
+                
                     <label for="description">Description:</label>
                     <textarea id="description" name="description" required></textarea>
-                    
+                
                     <label for="price">Price:</label>
                     <input type="number" id="price" name="price" required>
                 
                     <label for="image">Product Image:</label>
                     <input type="file" id="image" name="image" accept="image/*">
-                    
-                    <button type="submit">Create Product</button>
+                
+                    <button type="submit">Update Product</button>
                 </form>
+                
             {% endif %}
         </section>
     </main>
@@ -182,5 +184,6 @@
             </ul>
         </div>
     </footer>
+    <script src="{{url_for('static', filename='js/user_update.js')}}"></script>
 </body>
 </html>

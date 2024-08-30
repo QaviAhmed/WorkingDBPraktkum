@@ -22,3 +22,28 @@ $(document).ready(function() {
         });
     });
 });
+
+$(document).ready(function() {
+    $('#updateProductForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Get the form data
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "{{ url_for('products_page.update_product') }}", // The URL to make the request
+            type: 'PUT', // The HTTP method to use
+            data: formData,
+            contentType: false, // Important: set contentType to false for FormData
+            processData: false,  // Important: do not process the data as URL-encoded params
+            success: function(response) {
+                alert('Product updated successfully');
+                // Optionally, redirect or update the page content
+                window.location.href = "{{ url_for('main_page') }}";
+            },
+            error: function(xhr, status, error) {
+                alert('Error updating product: ' + xhr.responseText);
+            }
+        });
+    });
+});
