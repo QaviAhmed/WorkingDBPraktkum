@@ -4,77 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Order - ShoesYou</title>
-    <link rel="stylesheet" href="stylesTrack.css">
-    <link rel="stylesheet" href="/frontend/main /style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/stylestrack.css')}}">
 
 </head>
 <body>
     <header class="header">
-        <nav style="display: grid; grid-template-columns:repeat(3, 1fr); justify-content:space-between;">
+        <nav style="display: grid; grid-template-columns:repeat(2, 1fr); justify-content:space-between;">
             <div style="display: flex; align-items:center;">
-                <a href="/main/Home.html" class="logo">
-                    <img src="/frontend/main /pics/Logo2.png" alt="ShoesYou">
+                <a href="/" class="logo">
+                    <img src="{{ url_for('static',filename='pics/Logo2.png') }}" alt="ShoesYou">
                 </a>
-                <a href="">Categories</a>
-            </div>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search...">
-                <button type="submit" onclick="searchItems()">&#128269;</button>
             </div>
             <div style="display:flex;justify-content:end; text-align:end;" >
-                <button class="under-btn">Become a Seller!</button>
-                <img src="/frontend/main /pics/wishlist.PNG" alt="User Icon" style="width: 15%;">
-                <img src="/frontend/main /pics/cart.PNG" alt="User Icon" style="width: 15%;">
-                <img src="/frontend/main /pics/user.jpeg" alt="User Icon" style="width: 11%;">
+                <a href="/wishlist" class="nav_icon"><img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 95%;"></a>
+                <a href="/cart" class="nav_icon"><img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 100%;" /><div id="cart_items_total"></div></a>
+                <a href="/login" class="nav_icon" id="logged_in"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 90%;"></a>
+                <button style="display: none; padding: 5px;" id="log_out">log out</button>
             </div>
         </nav>
     </header>
 
     <main>
         <section class="track-order">
-            <h1>Track Order</h1>
-            <h2>Order details: #763F7SS&</h2>
+            {% for order in orders %}
+                <h1>Track Order</h1>
+                <h2>Order details: #{{order['order_id']}}</h2>
 
-            <div class="order-progress">
-                <div class="progress-step completed">
-                    <p>Order Placed</p>
-                </div>
-                <div class="progress-step completed">
-                    <p>Order Confirmed</p>
-                </div>
-                <div class="progress-step completed">
-                    <p>In Process</p>
-                </div>
-                <div class="progress-step">
-                    <p>In Delivery</p>
-                </div>
-                <div class="progress-step">
-                    <p>Delivered</p>
-                </div>
-            </div>
-
-            <div class="order-summary">
-                <h2>Bestellungsübersicht:</h2>
-                <!-- Order Item 1 -->
-                <div class="order-item">
-                    <div class="item-number">1.</div>
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <p>Quantity: 1</p>
-                        <p>Details:<br>xxxxxxxxx xxx x x<br>x x x x x x x x x x<br>xxxxxxx<br>xxxxxxxx</p>
+                <div class="order-progress">
+                    <div class="progress-step completed">
+                        <p>Order Placed</p>
                     </div>
-                    <div class="item-price">1000.00 €</div>
+                    <div class="progress-step completed">
+                        <p>Order Confirmed</p>
+                    </div>
+                    <div class="progress-step completed">
+                        <p>In Process</p>
+                    </div>
+                    <div class="progress-step">
+                        <p>In Delivery</p>
+                    </div>
+                    <div class="progress-step">
+                        <p>Delivered</p>
+                    </div>
                 </div>
+
+                <div class="order-summary">
+                    <h2>Bestellungsübersicht:</h2>
+                    <!-- Order Item 1 -->
+                        
+                        <div class="order-item">
+                            <div class="item-number">1.</div>
+                            <div class="item-image"></div>
+                            <div class="item-details">
+                                <p>Quantity: {{order['quanity']}}</p>
+                                {% for product in order['product'] %}
+                                    <p>Details:<br>{{product['product_name']}}<br>{{product['description']}}</p>
+                                </div>
+                                <div class="item-price">{{product['price'] * order['quanity']}} $</div>
+                                {% endfor %}
+                        </div>
+                {% endfor %}
                 <!-- Order Item 2 -->
-                <div class="order-item">
-                    <div class="item-number">2.</div>
-                    <div class="item-image"></div>
-                    <div class="item-details">
-                        <p>Quantity: 1</p>
-                        <p>Details:<br>xxxxxxxxx xxx x x<br>x x x x x x x x x x<br>xxxxxxx<br>xxxxxxxx</p>
-                    </div>
-                    <div class="item-price">1000.00 €</div>
-                </div>
             </div>
 
             <p class="return-policy">Some Articles cannot be returned!</p>

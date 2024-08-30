@@ -174,28 +174,34 @@ def difference_products():
  # -- product cruds --
 @products_page.route('/products', methods=['POST'])
 def create_product():
+    user_id = request.form.get('user_id')
     product_id = request.form.get('product_id')
     name = request.form.get('name')
     description = request.form.get('description')
     price = request.form.get('price')
+    product_image = request.files.get('image')
     
     # Check if the product exists
     existing_product = db_manager.fetch_one("SELECT * FROM Product WHERE product_id = %s", (product_id,))
     if existing_product:
         flash("Product already exists", "error")
-        return redirect(url_for('main_page'))
+        return redirect(url_for('/'))
     
     # Insert new product
     try:
+        image_path = None
+        if product_image:
+            image_path = save_image(product_image) 
+        # Insert the new product with the associated seller's user ID
         db_manager.execute("""
-        INSERT INTO Product (product_id, name, description, price)
-        VALUES (%s, %s, %s, %s)
-        """, (product_id, name, description, price))
+            INSERT INTO Product (name, description, price, user_id, image)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (name, description, price, user_id, image_path))
         flash("Product added successfully", "success")
     except Exception as e:
         flash(f"Error adding product: {str(e)}", "error")
     
-    return redirect(url_for('main_page'))
+    return redirect(url_for('/'))
 
 @products_page.route('/products', methods=['DELETE'])
 def delete_product():
@@ -215,6 +221,13 @@ def delete_product():
         flash(f"Error deleting product: {str(e)}", "error")
     
     return redirect(url_for('main_page'))
+
+def save_image(image_file):
+    # Logic to save the image to your server or cloud storage
+    image_path = f"static/pics/product_images/{image_file.filename}"
+    image_file.save(image_path)
+    return image_path
+
 
 @products_page.route('/products', methods=['PUT'])
 def update_product():

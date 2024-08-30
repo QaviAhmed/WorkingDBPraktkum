@@ -1,0 +1,237 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h3 {
+    text-align: center;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #ddd;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: auto;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-pic-options {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-pic-options img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.profile-pic-options input[type="radio"] {
+    display: none;
+}
+
+.profile-pic-options input[type="radio"]:checked + label img {
+    border-color: #007BFF;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+/* Basic Reset */
+body, h1, h2, h3, p, ul, a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+
+nav{
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+nav img{
+    width: 100px;
+    border-radius: 50%;
+}
+
+.nav-links{
+    flex: 1;
+    text-align: right;
+
+}
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+    transition: background-color 0.3s;
+    border-radius: 20px;
+}
+
+.nav-links ul li a{
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid;
+    border-color: transparent;
+    padding: 15px;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.Your-order-button {
+    background-color: #48bb78;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+/* Main Account Section */
+main .account {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.account h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #555;
+}
+
+.profile-info i {
+    color: #666;
+    margin-left: 5px;
+}
+
+.account-details {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+.account-details h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.account-details p {
+    margin-bottom: 5px;
+}
+
+.account-details a {
+    color: #0066cc;
+}
+
+.seller-info {
+    font-size: 16px;
+}
+
+.seller-info h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.seller-info p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+

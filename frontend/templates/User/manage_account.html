@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage My Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/stylesAcc.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+</head>
+<body>
+    <header class="header">
+        <nav style="display: grid; grid-template-columns:repeat(2, 1fr); justify-content:space-between;">
+            <div style="display: flex; align-items:center;">
+                <a href="/" class="logo">
+                    <img src="{{ url_for('static',filename='pics/Logo2.png') }}" alt="ShoesYou">
+                </a>
+            </div>
+            <div style="display:flex;justify-content:end; text-align:end;" >
+                <a href="/wishlist" class="nav_icon"><img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 95%;"></a>
+                <a href="/cart" class="nav_icon"><img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 100%;" /><div id="cart_items_total"></div></a>
+                <a href="/login" class="nav_icon" id="logged_in"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 90%;"></a>
+                <button style="display: none; padding: 5px;" id="log_out">log out</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="account">
+            <h1>Manage Account</h1>
+            <div class="profile">
+                <div class="profile-pic">
+                    <img src="data:image/png;base64,{{ profile_pics[0]['data'] }}" alt="User profile picture">
+                </div>
+                <div class="profile-info">
+                    <h2>{{ user['name'] }}</h2>
+                    <p>Email: {{ user['email'] }}<br>
+                       Birthdate: {{ user['birthdate'] }}<br>
+                       Address: {{ address['street'] }} {{ address['house_number']}}, <br>
+                       {{ address['postal_code']}}, {{ address['city']}}, <br>
+                       {{ address['country']}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="account-details">
+                <h3>Account Details</h3>
+                <form method="POST">
+                    <label for="name">Username:</label>
+                    <input type="text" id="name" name="name" value="{{ user['name'] }}" required>
+                    <br>
+                    <br>
+                    <label for="birthdate">Birthdate:</label>
+                    <input type="date" id="birthdate" name="birthdate" value="{{ user['birthdate'] }}" required>
+                    <br>
+                    <br>
+
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" value="{{ user['address'] }}" required>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <label for="profile_pic_id">Choose a Profile Picture:</label>
+                    <div class="profile-pic-options">
+                        {% for pic in profile_pics %}
+                            <input type="radio" id="profile_pic_{{ pic['id'] }}" name="profile_pic_id" value="{{ pic['id'] }}" {% if user['profile_pic_id'] == pic['id'] %}checked{% endif %}>
+                            <label for="profile_pic_{{ pic['id'] }}">
+                                <img src="data:image/png;base64,{{ pic['data'] }}" alt="Profile Pic {{ pic['id'] }}">
+                            </label>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
+
+            <div class="Your-order">
+                <p>You can track all your orders and chats:</p> 
+                <a class="Your-order-button" href="/user_order/{{user['user_id']}}">Your orders</a>
+                <button class="Your-order-button ">Your chats</button>
+            </div>
+            <br>
+            {{user['role']}}
+            {% if user['role'] == 'normal_user' %}
+                <div class="seller-info">
+                    <h3>Want to become a seller? Instructions to becoming a seller:</h3>
+                    <p>
+                        apply for the seller option now
+                    </p>
+                </div>
+            {% elif user['role'] == 'seller' %}
+                <section class="seller-header">
+                    <h1>Seller's Shop</h1>
+                    <div class="seller-info">
+                        <div class="profile-pic">
+                            <img src="data:image/png;base64,{{ profile_pics[0]['data'] }}" alt="User profile picture">
+                        </div>
+                        <div class="seller-details">
+                            <p>★★★★☆</p>
+                            <button class="chat-button">Chat with Seller</button>
+                        </div>
+                        <div class="notification-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                </section>
+        
+                <section class="seller-listings">
+                    <h2>Anzeigen von Seller</h2>
+                    <div class="listings-grid">
+                        <!-- Repeat these blocks for each product listing -->
+                        <div class="listing-item">
+                            <div class="image-placeholder"></div>
+                            <button class="wishlist-icon">❤</button>
+                        </div>
+                        <div class="listing-item">
+                            <div class="image-placeholder"></div>
+                            <button class="wishlist-icon">❤</button>
+                        </div>
+                        <div class="listing-item">
+                            <div class="image-placeholder"></div>
+                            <button class="wishlist-icon">❤</button>
+                        </div>
+                        <!-- More items as needed -->
+                    </div>
+                </section>
+                <form action="{{ url_for('product_page.create_product') }}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="{{ user['user_id'] }}"> <!-- Hidden field to send user_id -->
+                    
+                    <label for="name">Product Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+                    
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" required>
+                
+                    <label for="image">Product Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                    
+                    <button type="submit">Create Product</button>
+                </form>
+            {% endif %}
+        </section>
+    </main>
+
+        </section>
+
+        
+    </main>
+
+    <footer>
+        <div class="footer-section">
+            <h3>ShoesYou</h3>
+            <ul>
+                <li>Über uns</li>
+                <li>News Agents</li>
+                <li>Mobile Apps</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Informationen</h3>
+            <ul>
+                <li>Hilfe</li>
+                <li>Tipps für deine Sicherheit</li>
+                <li>Impressum</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Social Media</h3>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>TikTok</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Allgemein</h3>
+            <ul>
+                <li>Datenschutz</li>
+                <li>Anzeigen Übersicht</li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+/* Basic Reset */
+body, h1, h2, h3, p, ul, a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* My Orders Section */
+.my-orders {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.my-orders h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.order-list {
+    margin-top: 20px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.order-details h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.order-actions {
+    display: flex;
+    align-items: center;
+}
+
+.track-order-button {
+    background-color: #48bb78;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+

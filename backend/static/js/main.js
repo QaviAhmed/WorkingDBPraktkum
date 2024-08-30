@@ -57,23 +57,26 @@ $(document).ready(function() {
 });
 $(document).ready(function(){
     const user_exists = localStorage.getItem("user_id");
+    const logged_in = document.getElementById('logged_in');
+    const log_out = document.getElementById('log_out');
+    const user_profile = document.getElementById('user-profile');
     $("#log_out").click(function(){
         localStorage.clear()
         location.reload()
     })
     if(user_exists){
-        const logged_in = document.getElementById('logged_in');
-        const log_out = document.getElementById('log_out');
         logged_in.style.display= 'none';
         log_out.style.display = 'block';
-
+        user_profile.style.display = 'block';
+        $('#user-profile').click(function(){
+            window.location.href = `/account/${user_exists}`
+        })
         document.getElementById("cart_items_total").innerHTML = JSON.parse(localStorage.getItem('cart')).length
     }
     if (!user_exists){
-        const logged_in = document.getElementById('logged_in');
-        const log_out = document.getElementById('log_out');
         logged_in.style.display= 'block';
         log_out.style.display = 'none';
+        user_profile.style.display = 'none';
         localStorage.clear()
     }
-}) 
+});

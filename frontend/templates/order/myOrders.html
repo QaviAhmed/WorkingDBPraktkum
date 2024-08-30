@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - ShoesYou</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/styleMyOrders.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/main.css')}}">
+</head>
+<body>
+    <header class="header">
+        <nav style="display: grid; grid-template-columns:repeat(2, 1fr); justify-content:space-between;">
+            <div style="display: flex; align-items:center;">
+                <a href="/" class="logo">
+                    <img src="{{ url_for('static',filename='pics/Logo2.png') }}" alt="ShoesYou">
+                </a>
+            </div>
+            <div style="display:flex;justify-content:end; text-align:end;" >
+                <a href="/wishlist" class="nav_icon"><img src="{{ url_for('static',filename='pics/wishlist.PNG') }}" alt="User Icon" style="width: 95%;"></a>
+                <a href="/cart" class="nav_icon"><img src="{{ url_for('static',filename='pics/cart.PNG') }}" alt="User Icon" style="width: 100%;" /><div id="cart_items_total"></div></a>
+                <a href="/login" class="nav_icon" id="logged_in"><img src="{{ url_for('static',filename='pics/user.jpeg') }}" alt="User Icon" style="width: 90%;"></a>
+                <button style="display: none; padding: 5px;" id="log_out">log out</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="my-orders">
+            <h1>My Orders</h1>
+            <div class="order-list">
+                <!-- Example order item -->
+                 {% for order in orders%}
+                <div class="order-item">
+                    <div class="order-details">
+                        <h3>Order #{{order['order_id']}}</h3>
+                        <p>Date: {{order['date']}}</p>
+                        <p>Total: {{order['price']}} €</p>
+                        <p>Status: {{order['status']}}</p>
+                    </div>
+                    <div class="order-actions">
+                        <a class="track-order-button" href="/track_order/{{order['order_id']}}">Track Order</a>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- Add more order items as needed -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-section">
+            <h3>ShoesYou</h3>
+            <ul>
+                <li>Über uns</li>
+                <li>News Agents</li>
+                <li>Mobile Apps</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Informationen</h3>
+            <ul>
+                <li>Hilfe</li>
+                <li>Tipps für deine Sicherheit</li>
+                <li>Impressum</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Social Media</h3>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>TikTok</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Allgemein</h3>
+            <ul>
+                <li>Datenschutz</li>
+                <li>Anzeigen Übersicht</li>
+            </ul>
+        </div>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>

@@ -5,7 +5,8 @@ import os
 from db_model import db_manager
 from views.products.products import products_page, product_detail_page, category_page,\
       feedback_page, api_product_page,cart_page
-from views.order.order import order_page, oder_success_page
+from views.order.order import order_page, oder_success_page, oder_track_page, order_user_page
+from views.users.user import user_manage_page
 from views.authorization.login import login_page
 from views.authorization.registration import register_page
 
@@ -23,6 +24,9 @@ app.register_blueprint(api_product_page)
 app.register_blueprint(cart_page)
 app.register_blueprint(order_page)
 app.register_blueprint(oder_success_page)
+app.register_blueprint(user_manage_page)
+app.register_blueprint(oder_track_page)
+app.register_blueprint(order_user_page)
 
 # -- sessions setup --
 app.secret_key = 'supersecretkey'
